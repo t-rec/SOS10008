@@ -1,41 +1,51 @@
 {
-    "expo": {
-        "name": "SOS 10008",
-        "slug": "sos-10008",
-        "version": "1.0.0",
-        "orientation": "portrait",
-        "icon": "./assets/images/10008-Icon.png",
-        "scheme": "sos-10008",
-        "userInterfaceStyle": "automatic",
-        "newArchEnabled": true,
-        "splash": {
-            "image": "./assets/images/10008-Icon.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#ffffff"
-        },
-        "ios": {
-            "supportsTablet": false,
-            "bundleIdentifier": "org.local10008.sos10008",
-            "buildNumber": "1"
-        },
-        "android": {
-            "adaptiveIcon": {
-                "foregroundImage": "./assets/images/10008-Icon.png",
-                "backgroundColor": "#ffffff"
-            },
-            "package": "org.local10008.sos10008",
-            "versionCode": 1
-        },
-        "web": {
-            "favicon": "./assets/images/10008-Icon.png"
-        },
-        "plugins": [
-            "expo-router",
-            "expo-font",
-            "expo-web-browser"
-        ],
-        "experiments": {
-            "typedRoutes": true
-        }
-    }
+  "expo": {
+    "name": "SOS 10008",
+    "slug": "sos-10008",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/10008-Icon.png",
+    "scheme": "sos-10008",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/10008-Icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "org.local10008.sos10008",
+      "buildNumber": "1",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/10008-Icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "org.local10008.sos10008",
+      "versionCode": 1
+    },
+    "web": {
+      "favicon": "./assets/images/10008-Icon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-web-browser"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "69e43365-d1f4-4c2c-aa08-4d060abcd995"
+      }
+    },
+    "owner": "tapps-inc"
+  }
 }
