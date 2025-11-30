@@ -4,28 +4,30 @@
         "slug": "sos-10008",
         "version": "1.0.0",
         "orientation": "portrait",
-        "icon": "./assets/images/icon.png",
+        "icon": "./assets/images/10008-Icon.png",
         "scheme": "sos-10008",
         "userInterfaceStyle": "automatic",
         "newArchEnabled": true,
         "splash": {
-            "image": "./assets/images/splash-icon.png",
+            "image": "./assets/images/10008-Icon.png",
             "resizeMode": "contain",
             "backgroundColor": "#ffffff"
         },
         "ios": {
             "supportsTablet": false,
-            "bundleIdentifier": "com.ute-sei.sos-10008"
+            "bundleIdentifier": "org.utese.sos10008",
+            "buildNumber": "1"
         },
         "android": {
             "adaptiveIcon": {
-                "foregroundImage": "./assets/images/adaptive-icon.png",
+                "foregroundImage": "./assets/images/10008-Icon.png",
                 "backgroundColor": "#ffffff"
             },
-            "package": "com.ute_sei.sos_10008"
+            "package": "org.utese.sos10008",
+            "versionCode": 1
         },
         "web": {
-            "favicon": "./assets/images/favicon.png"
+            "favicon": "./assets/images/10008-Icon.png"
         },
         "plugins": [
             "expo-router",
