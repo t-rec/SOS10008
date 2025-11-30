@@ -1,0 +1,128 @@
+{
+    "common": {
+        "title": "SOS 10008",
+        "subtitle": "Cette application t'aide quand un·e gestionnaire veut te rencontrer.\n\nTu n'es pas seul·e.",
+        "emergencyButton": "On veut me rencontrer\nMAINTENANT",
+        "rightsButton": "Mes droits en rencontre",
+        "notesButton": "Mes notes de rencontres",
+        "contactButton": "Contacter la section locale 10008",
+        "back": "Retour",
+        "loading": "Chargement...",
+        "email": "Courriel",
+        "phone": "Téléphone",
+        "manager": "Gestionnaire"
+    },
+    "contact": {
+        "title": "Contacter la section locale 10008",
+        "prefilledMessage": "Message prérempli",
+        "useNote": "Utiliser une note",
+        "editHint": "Tu peux modifier ce message avant de le copier",
+        "sendEmail": "Envoyer le courriel",
+        "infoText": "Utilise le bouton \"Envoyer\" pour ouvrir ton application de courriel, ou copie le message pour le coller ailleurs.",
+        "chooseNote": "Choisir une note",
+        "noNotes": "Aucunes notes enregistrées",
+        "noSubject": "Sans sujet",
+        "defaultMessage": "Bonjour,\n\nJe vous écris parce qu'un·e gestionnaire veut me rencontrer / m'a rencontré·e aujourd'hui.\n\nDate: {{date}}\nHeure: {{time}}\nGestionnaire: [nom]\nSujet annoncé: [sujet]\n\nJ'aimerais être accompagné·e par le syndicat ou obtenir des conseils.\n\nMerci."
+    },
+    "emergency": {
+        "title": "Avant d'entrer dans le bureau",
+        "right1": "Tu as le droit d'être accompagné·e par le syndicat.",
+        "right2": "Tu peux demander de reporter la rencontre si aucune personne syndiquée n'est disponible.",
+        "right3": "Tu n'es pas obligé·e de signer un document sur-le-champ.",
+        "right4": "Tu as le droit de prendre des notes pendant la rencontre.",
+        "right5": "Tu peux demander une copie de tout document te concernant.",
+        "phrasesButton": "Phrases utiles à retenir",
+        "notesButton": "Prendre des notes sur cette rencontre"
+    },
+    "rights": {
+        "mainTitle": "Tes droits en rencontre avec la gestion",
+        "section1Title": "Droit à la représentation syndicale",
+        "section1Text1": "Tu as le droit d'être accompagné·e par un·e représentant·e syndical·e lors de toute rencontre qui pourrait mener à une mesure disciplinaire ou administrative. C'est un droit fondamental.",
+        "section1Text2": "Si aucune personne syndiquée n'est disponible immédiatement, tu peux demander de reporter la rencontre à un moment où quelqu'un du syndicat pourra t'accompagner.",
+        "section2Title": "Droit de demander de reporter la rencontre",
+        "section2Text": "Tu n'es pas obligé·e d'accepter une rencontre sur-le-champ. Tu peux demander un délai raisonnable pour :",
+        "bullet1": "Préparer ta version des faits",
+        "bullet2": "Consulter le syndicat",
+        "bullet3": "Assurer la présence d'une personne syndiquée",
+        "section3Title": "Droit de ne pas signer immédiatement",
+        "section3Text1": "Si on te présente un document (avertissement, mesure disciplinaire, plan d'amélioration), tu n'es pas obligé·e de le signer sur place.",
+        "section3Text2": "Tu peux demander une copie, prendre le temps de le lire attentivement, et consulter le syndicat avant de décider si tu veux le signer ou non. Ta signature ne signifie pas nécessairement que tu es d'accord avec le contenu.",
+        "section4Title": "Comment contacter la section locale 10008",
+        "section4Text1": "N'hésite jamais à contacter la section locale 10008. C'est là pour t'aider et te défendre.",
+        "section4Text2": "N'attends pas qu'une situation devienne critique. Le syndicat peut t'aider dès qu'un problème commence."
+    },
+    "notes": {
+        "emptyTitle": "Aucunes notes enregistrées",
+        "emptyText": "Vos notes de rencontres apparaîtront ici",
+        "createButton": "Créer des notes de rencontre"
+    },
+    "phrases": {
+        "title": "Phrases que tu peux utiliser",
+        "subtitle": "Touche une phrase pour la copier",
+        "backHome": "Retour à l'accueil",
+        "list": [
+            "Je souhaite être accompagné·e par un·e représentant·e syndical·e pour cette rencontre.",
+            "Je préfère remettre cette rencontre à un moment où mon syndicat peut être présent.",
+            "Je veux d'abord parler à mon syndicat avant de répondre.",
+            "Je ne me sens pas à l'aise de continuer sans représentation syndicale.",
+            "Je demande une copie de tout document que vous voulez que je signe.",
+            "J'aimerais prendre des notes pendant cette rencontre."
+        ]
+    },
+    "newNote": {
+        "title": "Notes de rencontre",
+        "date": "Date",
+        "time": "Heure",
+        "managerLabel": "Nom du ou de la gestionnaire *",
+        "managerPlaceholder": "Nom complet",
+        "subjectLabel": "Sujet annoncé de la rencontre *",
+        "subjectPlaceholder": "Ex: Coaching, disciplinaire, retour au travail...",
+        "descriptionLabel": "Ce qui s'est dit / ce qui s'est passé",
+        "descriptionPlaceholder": "Décrivez en détail ce qui s'est passé pendant la rencontre...",
+        "witnessesLabel": "Témoins, personnes présentes, autres détails",
+        "witnessesPlaceholder": "Noms des personnes présentes, autres informations pertinentes...",
+        "saveButton": "Enregistrer mes notes",
+        "cancelButton": "Annuler / Retour",
+        "errorManager": "Le nom du gestionnaire est requis",
+        "errorSubject": "Le sujet de la rencontre est requis",
+        "toastErrorTitle": "Champs requis",
+        "toastErrorText": "Veuillez corriger les erreurs affichées en rouge.",
+        "toastSuccessTitle": "Succès",
+        "toastSuccessText": "Vos notes ont été enregistrées.",
+        "toastSaveErrorTitle": "Erreur",
+        "toastSaveErrorText": "Impossible de sauvegarder vos notes."
+    },
+    "noteDetail": {
+        "notFound": "Note introuvable",
+        "manager": "Gestionnaire",
+        "subject": "Sujet de la rencontre",
+        "description": "Ce qui s'est dit / ce qui s'est passé",
+        "witnesses": "Témoins, personnes présentes, autres détails",
+        "copyButton": "Copier tout le texte",
+        "copiedButton": "Texte copié !",
+        "deleteButton": "Supprimer cette note",
+        "copyErrorTitle": "Erreur",
+        "copyErrorText": "Impossible de copier le texte",
+        "copyTemplate": {
+            "title": "NOTE DE RENCONTRE - Section locale 10008",
+            "date": "Date",
+            "time": "Heure",
+            "manager": "Gestionnaire",
+            "subject": "Sujet",
+            "description": "Ce qui s'est dit / ce qui s'est passé",
+            "witnesses": "Témoins, personnes présentes, autres détails"
+        }
+    },
+    "deleteModal": {
+        "title": "Supprimer la note",
+        "message": "Êtes-vous sûr de vouloir supprimer cette note? Cette action est irréversible.",
+        "cancel": "Annuler",
+        "delete": "Supprimer",
+        "toastTitle": "Note supprimée",
+        "toastMessage": "Votre note a été supprimée avec succès."
+    },
+    "footer": {
+        "disclaimer": "SOS 10008 est une initiative exclusive de la section locale 10008, conçue localement pour nos membres. Cette application n'est pas affiliée au Syndicat des employé-e-s (SEI) ni à l'Alliance de la fonction publique du Canada (AFPC).",
+        "solidarity": "En toute solidarité"
+    }
+}

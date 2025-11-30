@@ -1,0 +1,128 @@
+{
+    "common": {
+        "title": "SOS 10008",
+        "subtitle": "This app helps you when a manager wants to meet with you.\n\nYou are not alone.",
+        "emergencyButton": "They want to meet me\nNOW",
+        "rightsButton": "My Meeting Rights",
+        "notesButton": "My Meeting Notes",
+        "contactButton": "Contact Local 10008",
+        "back": "Back",
+        "loading": "Loading...",
+        "email": "Email",
+        "phone": "Phone",
+        "manager": "Manager"
+    },
+    "contact": {
+        "title": "Contact Local 10008",
+        "prefilledMessage": "Pre-filled Message",
+        "useNote": "Use a note",
+        "editHint": "You can edit this message before copying",
+        "sendEmail": "Send Email",
+        "infoText": "Use the \"Send\" button to open your email app, or copy the message to paste elsewhere.",
+        "chooseNote": "Choose a note",
+        "noNotes": "No notes saved",
+        "noSubject": "No subject",
+        "defaultMessage": "Hello,\n\nI am writing to you because a manager wants to meet with me / met with me today.\n\nDate: {{date}}\nTime: {{time}}\nManager: [name]\nStated Subject: [subject]\n\nI would like to be accompanied by the union or get advice.\n\nThank you."
+    },
+    "emergency": {
+        "title": "Before entering the office",
+        "right1": "You have the right to be accompanied by the union.",
+        "right2": "You can ask to postpone the meeting if no union representative is available.",
+        "right3": "You are not obliged to sign a document on the spot.",
+        "right4": "You have the right to take notes during the meeting.",
+        "right5": "You can ask for a copy of any document concerning you.",
+        "phrasesButton": "Useful phrases to remember",
+        "notesButton": "Take notes on this meeting"
+    },
+    "rights": {
+        "mainTitle": "Your Rights in Management Meetings",
+        "section1Title": "Right to Union Representation",
+        "section1Text1": "You have the right to be accompanied by a union representative during any meeting that could lead to disciplinary or administrative action. This is a fundamental right.",
+        "section1Text2": "If no union person is available immediately, you can ask to postpone the meeting to a time when someone from the union can accompany you.",
+        "section2Title": "Right to Request a Postponement",
+        "section2Text": "You are not obliged to accept a meeting on the spot. You can ask for a reasonable delay to:",
+        "bullet1": "Prepare your version of the facts",
+        "bullet2": "Consult the union",
+        "bullet3": "Ensure the presence of a union person",
+        "section3Title": "Right Not to Sign Immediately",
+        "section3Text1": "If you are presented with a document (warning, disciplinary measure, improvement plan), you are not obliged to sign it on the spot.",
+        "section3Text2": "You can ask for a copy, take the time to read it carefully, and consult the union before deciding whether to sign it or not. Your signature does not necessarily mean you agree with the content.",
+        "section4Title": "How to Contact Local 10008",
+        "section4Text1": "Never hesitate to contact Local 10008. It is there to help and defend you.",
+        "section4Text2": "Don't wait for a situation to become critical. The union can help you as soon as a problem starts."
+    },
+    "notes": {
+        "emptyTitle": "No notes saved",
+        "emptyText": "Your meeting notes will appear here",
+        "createButton": "Create meeting notes"
+    },
+    "phrases": {
+        "title": "Phrases you can use",
+        "subtitle": "Tap a phrase to copy it",
+        "backHome": "Back to Home",
+        "list": [
+            "I wish to be accompanied by a union representative for this meeting.",
+            "I prefer to postpone this meeting to a time when my union can be present.",
+            "I want to speak to my union before answering.",
+            "I do not feel comfortable continuing without union representation.",
+            "I request a copy of any document you want me to sign.",
+            "I would like to take notes during this meeting."
+        ]
+    },
+    "newNote": {
+        "title": "Meeting Notes",
+        "date": "Date",
+        "time": "Time",
+        "managerLabel": "Manager's Name *",
+        "managerPlaceholder": "Full Name",
+        "subjectLabel": "Announced Subject of the Meeting *",
+        "subjectPlaceholder": "Ex: Coaching, disciplinary, return to work...",
+        "descriptionLabel": "What was said / what happened",
+        "descriptionPlaceholder": "Describe in detail what happened during the meeting...",
+        "witnessesLabel": "Witnesses, people present, other details",
+        "witnessesPlaceholder": "Names of people present, other relevant information...",
+        "saveButton": "Save my notes",
+        "cancelButton": "Cancel / Back",
+        "errorManager": "Manager's name is required",
+        "errorSubject": "Meeting subject is required",
+        "toastErrorTitle": "Required Fields",
+        "toastErrorText": "Please correct the errors shown in red.",
+        "toastSuccessTitle": "Success",
+        "toastSuccessText": "Your notes have been saved.",
+        "toastSaveErrorTitle": "Error",
+        "toastSaveErrorText": "Unable to save your notes."
+    },
+    "noteDetail": {
+        "notFound": "Note not found",
+        "manager": "Manager",
+        "subject": "Meeting Subject",
+        "description": "What was said / what happened",
+        "witnesses": "Witnesses, people present, other details",
+        "copyButton": "Copy all text",
+        "copiedButton": "Text copied!",
+        "deleteButton": "Delete this note",
+        "copyErrorTitle": "Error",
+        "copyErrorText": "Unable to copy text",
+        "copyTemplate": {
+            "title": "MEETING NOTE - Local 10008",
+            "date": "Date",
+            "time": "Time",
+            "manager": "Manager",
+            "subject": "Subject",
+            "description": "What was said / what happened",
+            "witnesses": "Witnesses, people present, other details"
+        }
+    },
+    "deleteModal": {
+        "title": "Delete Note",
+        "message": "Are you sure you want to delete this note? This action cannot be undone.",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "toastTitle": "Note Deleted",
+        "toastMessage": "Your note has been deleted successfully."
+    },
+    "footer": {
+        "disclaimer": "SOS 10008 is an exclusive initiative of Local 10008, designed locally for our members. The app is not affiliated with the Union of Taxation Employees (UTE) nor the Public Service Alliance of Canada (PSAC).",
+        "solidarity": "In solidarity"
+    }
+}
