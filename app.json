@@ -15,7 +15,7 @@
         },
         "ios": {
             "supportsTablet": false,
-            "bundleIdentifier": "org.utese.sos10008",
+            "bundleIdentifier": "org.local10008.sos10008",
             "buildNumber": "1"
         },
         "android": {
@@ -23,7 +23,7 @@
                 "foregroundImage": "./assets/images/10008-Icon.png",
                 "backgroundColor": "#ffffff"
             },
-            "package": "org.utese.sos10008",
+            "package": "org.local10008.sos10008",
             "versionCode": 1
         },
         "web": {
