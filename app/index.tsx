@@ -16,23 +16,26 @@ export default function HomeScreen() {
 
     return (
         <View style={[styles.background, { backgroundColor: colors.background }]}>
-            <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
+            <SafeAreaView edges={['top']} style={styles.topSafeArea}>
+                <View style={styles.topBarContent}>
+                    <ThemeToggle />
+                    <LanguageToggle />
+                </View>
+            </SafeAreaView>
+
+            <SafeAreaView style={styles.container} edges={[]}>
                 <ScrollView
                     contentContainerStyle={styles.scrollContent}
                     showsVerticalScrollIndicator={false}
                 >
-                    <View style={styles.header}>
+                    <View style={[styles.header, { borderBottomColor: colors.border }]}>
                         <View style={styles.titleRow}>
                             <Image
                                 source={require('../assets/images/10008-Icon.png')}
                                 style={styles.icon}
                                 resizeMode="contain"
                             />
-                            <Text style={[styles.title, { color: colors.brand }]}>{t('common.title')}</Text>
-                            <View style={styles.togglesContainer}>
-                                <ThemeToggle />
-                                <LanguageToggle />
-                            </View>
+                            <Text style={[styles.titleSingleLine, { color: colors.brand }]}>SOS 10008</Text>
                         </View>
                         <Text style={[styles.subtitle, { color: colors.subtitle }]}>
                             {t('common.subtitle')}
@@ -43,6 +46,7 @@ export default function HomeScreen() {
                         <Pressable
                             style={({ pressed }) => [
                                 styles.emergencyButton,
+                                { shadowColor: colors.primaryShadow, borderColor: colors.primaryBorder },
                                 pressed && styles.buttonPressed,
                             ]}
                             onPress={() => router.push('/emergency')}
@@ -56,7 +60,7 @@ export default function HomeScreen() {
                         <Pressable
                             style={({ pressed }) => [
                                 styles.secondaryButton,
-                                { backgroundColor: colors.secondaryButton, borderColor: colors.secondaryButtonBorder },
+                                { backgroundColor: colors.secondaryButton, borderColor: colors.secondaryButtonBorder, shadowColor: colors.shadow },
                                 pressed && styles.buttonPressed,
                             ]}
                             onPress={() => router.push('/rights')}
@@ -70,7 +74,7 @@ export default function HomeScreen() {
                         <Pressable
                             style={({ pressed }) => [
                                 styles.secondaryButton,
-                                { backgroundColor: colors.secondaryButton, borderColor: colors.secondaryButtonBorder },
+                                { backgroundColor: colors.secondaryButton, borderColor: colors.secondaryButtonBorder, shadowColor: colors.shadow },
                                 pressed && styles.buttonPressed,
                             ]}
                             onPress={() => router.push('/notes')}
@@ -88,6 +92,7 @@ export default function HomeScreen() {
                     <Pressable
                         style={({ pressed }) => [
                             styles.contactButton,
+                            { shadowColor: colors.primaryShadow, borderColor: colors.primaryBorder },
                             pressed && styles.buttonPressed,
                         ]}
                         onPress={() => router.push('/contact')}
@@ -104,16 +109,22 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
     background: {
         flex: 1,
-        backgroundColor: '#FAFAFA',
+        backgroundColor: '#FFFFFF',
     },
     container: {
         flex: 1,
     },
-    languageToggleContainer: {
-        position: 'absolute',
-        top: 60, // Adjust based on safe area
-        right: 24,
+    topSafeArea: {
+        backgroundColor: '#F03F33',
         zIndex: 10,
+    },
+    topBarContent: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        paddingHorizontal: 24,
+        paddingVertical: 12,
+        gap: 12,
     },
     scrollContent: {
         flexGrow: 1,
@@ -121,120 +132,134 @@ const styles = StyleSheet.create({
         paddingVertical: 20,
     },
     header: {
-        marginBottom: 40,
-        marginTop: 20,
+        marginBottom: 24,
+        marginTop: 8,
+        borderBottomWidth: 4,
+        borderBottomColor: '#000000',
+        paddingBottom: 24,
+        gap: 20,
     },
     titleRow: {
         flexDirection: 'row',
-        alignItems: 'center',
         justifyContent: 'space-between',
-        gap: 16,
-        marginBottom: 32,
-    },
-    togglesContainer: {
-        marginLeft: 'auto' as const,
-        flexDirection: 'row',
         alignItems: 'center',
-        gap: 12,
+    },
+    titleSingleLine: {
+        fontSize: 56,
+        fontWeight: '900' as const,
+        color: '#F03F33',
+        lineHeight: 56,
+        letterSpacing: -1,
+        textTransform: 'uppercase',
+        flex: 1,
+        includeFontPadding: false,
+        textAlignVertical: 'center',
+        marginTop: 8,
     },
     icon: {
-        width: 48,
-        height: 48,
-    },
-    title: {
-        fontSize: 48,
-        fontWeight: '800' as const,
-        color: '#F03F33',
-        lineHeight: 48,
-        letterSpacing: -0.5,
-    },
-    subtitle: {
-        fontSize: 17,
-        color: '#4B5563',
-        lineHeight: 26,
+        width: 64,
+        height: 64,
+        marginRight: 16,
     },
     mainButtons: {
-        gap: 16,
+        gap: 20,
         marginBottom: 40,
+    },
+    subtitle: {
+        fontSize: 18,
+        color: '#000000',
+        lineHeight: 26,
+        fontWeight: '700',
     },
     emergencyButton: {
         backgroundColor: '#F03F33',
-        borderRadius: 16,
+        borderRadius: 4,
         padding: 24,
         alignItems: 'center',
         justifyContent: 'center',
-        gap: 12,
-        minHeight: 140,
-        shadowColor: '#F03F33',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 8,
-        elevation: 6,
+        gap: 16,
+        minHeight: 160,
+        borderWidth: 4,
+        borderColor: '#000000',
+        shadowColor: '#000000',
+        shadowOffset: { width: 8, height: 8 },
+        shadowOpacity: 1,
+        shadowRadius: 0,
+        elevation: 0,
     },
     secondaryButton: {
         backgroundColor: '#FFFFFF',
-        borderRadius: 16,
-        padding: 20,
+        borderRadius: 4,
+        padding: 24,
         flexDirection: 'row',
         alignItems: 'center',
         gap: 16,
-        minHeight: 80,
-        borderWidth: 2,
-        borderColor: '#FEE2E2',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.05,
-        shadowRadius: 4,
-        elevation: 2,
+        minHeight: 90,
+        borderWidth: 3,
+        borderColor: '#000000',
+        shadowColor: '#000000',
+        shadowOffset: { width: 4, height: 4 },
+        shadowOpacity: 1,
+        shadowRadius: 0,
+        elevation: 0,
     },
     emergencyButtonText: {
-        fontSize: 28,
-        fontWeight: '700' as const,
+        fontSize: 32,
+        fontWeight: '900' as const,
         color: '#FFFFFF',
         textAlign: 'center',
         lineHeight: 36,
+        textTransform: 'uppercase',
     },
     secondaryButtonText: {
-        fontSize: 18,
-        fontWeight: '600' as const,
-        color: '#1F2937',
+        fontSize: 20,
+        fontWeight: '800' as const,
+        color: '#000000',
         flex: 1,
+        textTransform: 'uppercase',
     },
     contactButton: {
         backgroundColor: '#F03F33',
-        borderRadius: 16,
+        borderRadius: 4,
         padding: 20,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
         gap: 12,
         marginTop: 'auto' as const,
-        shadowColor: '#F03F33',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 8,
-        elevation: 6,
+        borderWidth: 3,
+        borderColor: '#000000',
+        shadowColor: '#000000',
+        shadowOffset: { width: 4, height: 4 },
+        shadowOpacity: 1,
+        shadowRadius: 0,
+        elevation: 0,
     },
     contactButtonText: {
-        fontSize: 18,
-        fontWeight: '700' as const,
+        fontSize: 20,
+        fontWeight: '900' as const,
         color: '#FFFFFF',
+        textTransform: 'uppercase',
     },
     buttonPressed: {
-        opacity: 0.7,
+        transform: [{ translateX: 4 }, { translateY: 4 }],
+        shadowOffset: { width: 0, height: 0 },
+        opacity: 1,
     },
     badge: {
         backgroundColor: '#FEE2E2',
-        paddingHorizontal: 10,
-        paddingVertical: 4,
-        borderRadius: 12,
-        minWidth: 28,
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+        borderRadius: 4,
+        minWidth: 32,
         alignItems: 'center',
         justifyContent: 'center',
+        borderWidth: 2,
+        borderColor: '#000000',
     },
     badgeText: {
         color: '#F03F33',
-        fontWeight: '700' as const,
-        fontSize: 14,
+        fontWeight: '900' as const,
+        fontSize: 16,
     },
 });

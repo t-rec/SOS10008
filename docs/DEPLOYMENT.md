@@ -24,7 +24,11 @@ Contains app metadata and versioning:
     "version": "1.0.0",
     "ios": {
       "bundleIdentifier": "org.local10008.sos10008",
-      "buildNumber": "1"
+      "buildNumber": "1",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false,
+        "LSApplicationQueriesSchemes": ["mailto"]
+      }
     },
     "android": {
       "package": "org.local10008.sos10008",
@@ -33,6 +37,8 @@ Contains app metadata and versioning:
   }
 }
 ```
+
+> **Note**: `LSApplicationQueriesSchemes` is **required** for iOS to allow opening `mailto:` links from the Contact page. Without this, the email button will fail on real devices.
 
 ### `eas.json`
 Build configuration (already set up).

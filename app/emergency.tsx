@@ -5,6 +5,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/contexts/ThemeContext';
 
+import { ScreenHeader } from '@/components/ScreenHeader';
+
 export default function EmergencyScreen() {
     const router = useRouter();
     const { t } = useTranslation();
@@ -12,15 +14,9 @@ export default function EmergencyScreen() {
 
     return (
         <View style={[styles.background, { backgroundColor: colors.background }]}>
-            <Stack.Screen
-                options={{
-                    title: t('common.back'),
-                    headerStyle: { backgroundColor: '#F03F33' },
-                    headerTintColor: '#FFFFFF',
-                    headerTitleStyle: { fontWeight: '700' as const },
-                }}
-            />
-            <SafeAreaView style={styles.container} edges={['bottom']}>
+            <Stack.Screen options={{ headerShown: false }} />
+            <ScreenHeader />
+            <SafeAreaView style={styles.container} edges={['bottom', 'left', 'right']}>
                 <ScrollView
                     contentContainerStyle={styles.scrollContent}
                     showsVerticalScrollIndicator={false}
@@ -103,7 +99,7 @@ export default function EmergencyScreen() {
 const styles = StyleSheet.create({
     background: {
         flex: 1,
-        backgroundColor: '#FAFAFA',
+        backgroundColor: '#FFFFFF',
     },
     container: {
         flex: 1,
@@ -115,84 +111,101 @@ const styles = StyleSheet.create({
     },
     alertBox: {
         backgroundColor: '#FEF2F2',
-        borderLeftWidth: 4,
+        borderLeftWidth: 8,
         borderLeftColor: '#F03F33',
-        padding: 20,
-        borderRadius: 12,
+        padding: 24,
+        borderRadius: 4,
         marginBottom: 32,
+        borderWidth: 3,
+        borderColor: '#000000',
+        shadowColor: '#000000',
+        shadowOffset: { width: 6, height: 6 },
+        shadowOpacity: 1,
+        shadowRadius: 0,
     },
     title: {
-        fontSize: 24,
-        fontWeight: '700' as const,
+        fontSize: 28,
+        fontWeight: '900' as const,
         color: '#991B1B',
+        textTransform: 'uppercase',
+        letterSpacing: -0.5,
     },
     rightsList: {
-        gap: 20,
+        gap: 24,
         marginBottom: 40,
     },
     rightItem: {
         flexDirection: 'row',
-        gap: 16,
+        gap: 20,
         alignItems: 'flex-start',
     },
     bullet: {
-        width: 8,
-        height: 8,
-        borderRadius: 4,
+        width: 12,
+        height: 12,
+        borderRadius: 0, // Square bullet
         backgroundColor: '#F03F33',
         marginTop: 8,
+        borderWidth: 2,
+        borderColor: '#000000',
     },
     rightText: {
         flex: 1,
-        fontSize: 17,
-        color: '#1F2937',
-        lineHeight: 26,
+        fontSize: 18,
+        color: '#000000',
+        lineHeight: 28,
+        fontWeight: '600',
     },
     buttonsContainer: {
-        gap: 16,
+        gap: 20,
         marginTop: 'auto' as const,
     },
     primaryButton: {
         backgroundColor: '#F03F33',
-        borderRadius: 16,
-        padding: 20,
+        borderRadius: 4,
+        padding: 24,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        shadowColor: '#F03F33',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 8,
-        elevation: 6,
+        borderWidth: 3,
+        borderColor: '#000000',
+        shadowColor: '#000000',
+        shadowOffset: { width: 6, height: 6 },
+        shadowOpacity: 1,
+        shadowRadius: 0,
+        elevation: 0,
     },
     primaryButtonText: {
-        fontSize: 18,
-        fontWeight: '600' as const,
+        fontSize: 20,
+        fontWeight: '900' as const,
         color: '#FFFFFF',
         flex: 1,
+        textTransform: 'uppercase',
     },
     secondaryButton: {
         backgroundColor: '#FFFFFF',
-        borderRadius: 16,
-        padding: 20,
+        borderRadius: 4,
+        padding: 24,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        borderWidth: 2,
-        borderColor: '#FEE2E2',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.05,
-        shadowRadius: 4,
-        elevation: 2,
+        borderWidth: 3,
+        borderColor: '#000000',
+        shadowColor: '#000000',
+        shadowOffset: { width: 4, height: 4 },
+        shadowOpacity: 1,
+        shadowRadius: 0,
+        elevation: 0,
     },
     secondaryButtonText: {
-        fontSize: 18,
-        fontWeight: '600' as const,
-        color: '#1F2937',
+        fontSize: 20,
+        fontWeight: '800' as const,
+        color: '#000000',
         flex: 1,
+        textTransform: 'uppercase',
     },
     buttonPressed: {
-        opacity: 0.7,
+        transform: [{ translateX: 4 }, { translateY: 4 }],
+        shadowOffset: { width: 0, height: 0 },
+        opacity: 1,
     },
 });

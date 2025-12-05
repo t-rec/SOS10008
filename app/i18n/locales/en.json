@@ -2,10 +2,10 @@
     "common": {
         "title": "SOS 10008",
         "subtitle": "This app helps you when a manager wants to meet with you.\n\nYou are not alone.",
-        "emergencyButton": "They want to meet me\nNOW",
+        "emergencyButton": "They want to\nmeet me NOW",
         "rightsButton": "My Meeting Rights",
         "notesButton": "My Meeting Notes",
-        "contactButton": "Contact Local 10008",
+        "contactButton": "Contact 10008",
         "back": "Back",
         "loading": "Loading...",
         "email": "Email",
@@ -25,7 +25,7 @@
         "defaultMessage": "Hello,\n\nI am writing to you because a manager wants to meet with me / met with me today.\n\nDate: {{date}}\nTime: {{time}}\nManager: [name]\nStated Subject: [subject]\n\nI would like to be accompanied by the union or get advice.\n\nThank you."
     },
     "emergency": {
-        "title": "Before entering the office",
+        "title": "Before attending the meeting",
         "right1": "You have the right to be accompanied by the union.",
         "right2": "You can ask to postpone the meeting if no union representative is available.",
         "right3": "You are not obliged to sign a document on the spot.",
@@ -48,7 +48,7 @@
         "section3Text1": "If you are presented with a document (warning, disciplinary measure, improvement plan), you are not obliged to sign it on the spot.",
         "section3Text2": "You can ask for a copy, take the time to read it carefully, and consult the union before deciding whether to sign it or not. Your signature does not necessarily mean you agree with the content.",
         "section4Title": "How to Contact Local 10008",
-        "section4Text1": "Never hesitate to contact Local 10008. It is there to help and defend you.",
+        "section4Text1": "Never hesitate to contact Local 10008. We are there to help and defend you.",
         "section4Text2": "Don't wait for a situation to become critical. The union can help you as soon as a problem starts."
     },
     "notes": {

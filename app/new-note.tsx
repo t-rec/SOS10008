@@ -18,14 +18,15 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { useDateTimeFormat } from '@/hooks/useDateTimeFormat';
 import { useTheme } from '@/contexts/ThemeContext';
+import { ScreenHeader } from '@/components/ScreenHeader';
 
 export default function NewNoteScreen() {
     const router = useRouter();
     const { addNote } = useNotes();
     const insets = useSafeAreaInsets();
     const { t } = useTranslation();
-    const { colors } = useTheme();
-    const { formatDate, formatTime } = useDateTimeFormat();
+    const { colors, activeTheme } = useTheme();
+    const { formatDate, formatTime, isFrench } = useDateTimeFormat();
 
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [showDatePicker, setShowDatePicker] = useState(false);
@@ -93,13 +94,11 @@ export default function NewNoteScreen() {
         }
 
         try {
-            const dateStr = formatDate(selectedDate);
-            // Format time as HH:MM
-            const timeStr = formatTime(selectedDate);
+            const isoDate = selectedDate.toISOString();
 
             await addNote({
-                date: dateStr,
-                time: timeStr,
+                date: isoDate,
+                time: isoDate,
                 managerName: managerName.trim(),
                 subject: subject.trim(),
                 description: description.trim(),
@@ -145,14 +144,8 @@ export default function NewNoteScreen() {
 
     return (
         <View style={[styles.background, { backgroundColor: colors.background }]}>
-            <Stack.Screen
-                options={{
-                    title: t('common.back'),
-                    headerStyle: { backgroundColor: '#F03F33' },
-                    headerTintColor: '#FFFFFF',
-                    headerTitleStyle: { fontWeight: '700' as const },
-                }}
-            />
+            <Stack.Screen options={{ headerShown: false }} />
+            <ScreenHeader />
             <View style={styles.container}>
                 <KeyboardAvoidingView
                     behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -199,7 +192,7 @@ export default function NewNoteScreen() {
                             </View>
 
                             {(showDatePicker || showTimePicker) && (
-                                <View style={[styles.pickerContainer, { backgroundColor: colors.border }]}>
+                                <View style={[styles.pickerContainer, { backgroundColor: colors.card, borderColor: colors.border }]}>
                                     {showDatePicker && (
                                         <DateTimePicker
                                             value={selectedDate}
@@ -207,7 +200,8 @@ export default function NewNoteScreen() {
                                             display={Platform.OS === 'ios' ? 'spinner' : 'default'}
                                             onChange={onDateChange}
                                             style={styles.datePicker}
-                                            themeVariant={colors.background === '#111827' ? 'dark' : 'light'}
+                                            themeVariant={activeTheme}
+                                            locale={isFrench ? 'fr-CA' : 'en-US'}
                                         />
                                     )}
                                     {showTimePicker && (
@@ -218,7 +212,8 @@ export default function NewNoteScreen() {
                                             is24Hour={true}
                                             onChange={onTimeChange}
                                             style={styles.datePicker}
-                                            themeVariant={colors.background === '#111827' ? 'dark' : 'light'}
+                                            themeVariant={activeTheme}
+                                            locale={isFrench ? 'fr-CA' : 'en-US'}
                                         />
                                     )}
                                 </View>
@@ -323,7 +318,7 @@ export default function NewNoteScreen() {
 const styles = StyleSheet.create({
     background: {
         flex: 1,
-        backgroundColor: '#FAFAFA',
+        backgroundColor: '#FFFFFF',
     },
     container: {
         flex: 1,
@@ -337,18 +332,19 @@ const styles = StyleSheet.create({
         paddingVertical: 24,
     },
     header: {
-        fontSize: 26,
-        fontWeight: '700' as const,
-        color: '#1F2937',
-        marginBottom: 24,
+        fontSize: 32,
+        fontWeight: '900' as const,
+        color: '#000000',
+        marginBottom: 32,
+        textTransform: 'uppercase',
     },
     form: {
-        gap: 20,
+        gap: 24,
         marginBottom: 32,
     },
     row: {
         flexDirection: 'row',
-        gap: 12,
+        gap: 16,
     },
     halfField: {
         flex: 1,
@@ -357,19 +353,21 @@ const styles = StyleSheet.create({
         gap: 8,
     },
     label: {
-        fontSize: 15,
-        fontWeight: '600' as const,
-        color: '#374151',
+        fontSize: 16,
+        fontWeight: '900' as const,
+        color: '#000000',
         marginBottom: 8,
+        textTransform: 'uppercase',
     },
     input: {
         backgroundColor: '#FFFFFF',
-        borderRadius: 12,
+        borderRadius: 4,
         padding: 16,
-        fontSize: 16,
-        color: '#1F2937',
-        borderWidth: 2,
-        borderColor: '#E5E7EB',
+        fontSize: 18,
+        color: '#000000',
+        borderWidth: 3,
+        borderColor: '#000000',
+        fontWeight: '600',
     },
     inputError: {
         borderColor: '#EF4444',
@@ -379,55 +377,66 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#EF4444',
         marginTop: 4,
+        fontWeight: '700',
     },
     inputContainer: {
         backgroundColor: '#FFFFFF',
-        borderRadius: 12,
+        borderRadius: 4,
         padding: 16,
-        borderWidth: 2,
-        borderColor: '#E5E7EB',
+        borderWidth: 3,
+        borderColor: '#000000',
         justifyContent: 'center',
     },
     inputText: {
-        fontSize: 16,
-        color: '#1F2937',
+        fontSize: 18,
+        color: '#000000',
+        fontWeight: '600',
     },
     textArea: {
-        minHeight: 120,
+        minHeight: 140,
         paddingTop: 16,
     },
     buttonsContainer: {
-        gap: 12,
+        gap: 16,
         marginTop: 'auto' as const,
     },
     saveButton: {
         backgroundColor: '#F03F33',
-        borderRadius: 16,
-        padding: 18,
+        borderRadius: 4,
+        padding: 20,
         alignItems: 'center',
-        shadowColor: '#F03F33',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 8,
-        elevation: 6,
+        borderWidth: 3,
+        borderColor: '#000000',
+        shadowColor: '#000000',
+        shadowOffset: { width: 4, height: 4 },
+        shadowOpacity: 1,
+        shadowRadius: 0,
+        elevation: 0,
     },
     saveButtonText: {
-        fontSize: 17,
-        fontWeight: '600' as const,
+        fontSize: 20,
+        fontWeight: '900' as const,
         color: '#FFFFFF',
+        textTransform: 'uppercase',
     },
     cancelButton: {
         backgroundColor: '#FFFFFF',
-        borderRadius: 16,
-        padding: 18,
+        borderRadius: 4,
+        padding: 20,
         alignItems: 'center',
-        borderWidth: 2,
-        borderColor: '#E5E7EB',
+        borderWidth: 3,
+        borderColor: '#000000',
+        shadowColor: '#000000',
+        shadowOffset: { width: 4, height: 4 },
+        shadowOpacity: 1,
+        shadowRadius: 0,
+        elevation: 0,
     },
     cancelButtonText: {
-        fontSize: 17,
-        fontWeight: '600' as const,
-        color: '#6B7280',
+        fontSize: 20,
+        fontWeight: '900' as const,
+        color: '#000000',
+        textTransform: 'uppercase',
     },
     inputActive: {
         borderColor: '#F03F33',
@@ -438,13 +447,17 @@ const styles = StyleSheet.create({
     },
     pickerContainer: {
         backgroundColor: '#F3F4F6',
-        borderRadius: 12,
+        borderRadius: 4,
         overflow: 'hidden',
         marginTop: -8,
         alignItems: 'center',
         paddingVertical: 12,
+        borderWidth: 3,
+        borderColor: '#000000',
     },
     buttonPressed: {
-        opacity: 0.7,
+        transform: [{ translateX: 2 }, { translateY: 2 }],
+        shadowOffset: { width: 2, height: 2 },
+        opacity: 1,
     },
 });

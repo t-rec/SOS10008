@@ -9,6 +9,8 @@ import { useTranslation } from 'react-i18next';
 import { useDateTimeFormat } from '@/hooks/useDateTimeFormat';
 import { useTheme } from '@/contexts/ThemeContext';
 
+import { ScreenHeader } from '@/components/ScreenHeader';
+
 export default function ContactScreen() {
     const { t } = useTranslation();
     const { notes } = useNotes();
@@ -57,40 +59,6 @@ export default function ContactScreen() {
     };
 
     const handleSelectNote = (note: Note) => {
-        // We might want to translate this too, but it's constructed from note data.
-        // For now, let's keep the structure but maybe use a similar template if possible.
-        // Or just keep it hardcoded for now as it's specific logic.
-        // Actually, let's try to use the same template but replace the placeholders.
-
-        // Re-construct using the template but with note data
-        const noteMessage = t('contact.defaultMessage', {
-            date: note.date,
-            time: note.time
-        })
-            .replace('[nom]', note.managerName || '[nom]')
-            .replace('[sujet]', note.subject || '[sujet]')
-            .replace(
-                t('contact.defaultMessage').split('\n\n')[4] || 'J\'aimerais être accompagné·e par le syndicat ou obtenir des conseils.', // Fallback if split fails
-                `${t('contact.defaultMessage').split('\n\n')[4] || ''}\n\nCe qui s'est passé :\n${note.description || '(Aucune note)'}\n\nTémoins / Autres détails :\n${note.witnesses || '(Aucun)'}`
-            );
-
-        // This is getting complicated to replace exactly. 
-        // Let's just construct it manually for now to be safe, or accept it might be in the wrong language if we switch?
-        // If the user switches language, they probably want the message in that language.
-        // But the note content is in the language it was written in.
-
-        // Let's simplify: just use the default message template and append the note details.
-        const baseMessage = t('contact.defaultMessage', {
-            date: note.date,
-            time: note.time
-        });
-
-        const noteDetails = `\n\nDetails:\n${note.description || '-'}\n\nWitnesses:\n${note.witnesses || '-'}`;
-
-        // Ideally we should have a separate key for note-based message.
-        // For now, I'll leave the handleSelectNote logic slightly less perfect or just use the French structure if it's too hard to genericize without more keys.
-        // Let's stick to the manual construction for the note selection to ensure it includes the description/witnesses fields which aren't in the default template.
-
         const noteMessageFr = `Bonjour,
 
 Je vous écris parce qu'un·e gestionnaire veut me rencontrer / m'a rencontré·e aujourd'hui.
@@ -106,7 +74,7 @@ ${note.description || '(Aucune note)'}
 Témoins / Autres détails :
 ${note.witnesses || '(Aucun)'}
 
-J'aimerais être accompagné·e par le syndicat ou obtenir des conseils.
+J'aimerais être accompagné(e) par le syndicat ou obtenir des conseils.
 
 Merci.`;
 
@@ -147,7 +115,7 @@ Thank you.`;
     const handleSendEmail = async () => {
         const recipient = '10008@ute-sei.org';
         const subject = encodeURIComponent('Demande d\'accompagnement - Section locale 10008');
-        const body = encodeURIComponent(message);
+        const body = encodeURIComponent(message.replace(/\n/g, '\r\n'));
         const mailtoUrl = `mailto:${recipient}?subject=${subject}&body=${body}`;
 
         try {
@@ -168,14 +136,8 @@ Thank you.`;
 
     return (
         <View style={[styles.background, { backgroundColor: colors.background }]}>
-            <Stack.Screen
-                options={{
-                    title: t('common.back'),
-                    headerStyle: { backgroundColor: '#F03F33' },
-                    headerTintColor: '#FFFFFF',
-                    headerTitleStyle: { fontWeight: '700' as const },
-                }}
-            />
+            <Stack.Screen options={{ headerShown: false }} />
+            <ScreenHeader />
             <View style={styles.container}>
                 <KeyboardAvoidingView
                     behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -191,7 +153,14 @@ Thank you.`;
                         <Text style={[styles.header, { color: colors.text }]}>{t('contact.title')}</Text>
 
                         <View style={styles.contactInfo}>
-                            <View style={[styles.contactItem, { backgroundColor: colors.card, borderColor: colors.border }]}>
+                            <Pressable
+                                style={({ pressed }) => [
+                                    styles.contactItem,
+                                    { backgroundColor: colors.card, borderColor: colors.border },
+                                    pressed && { opacity: 0.7 }
+                                ]}
+                                onPress={() => Linking.openURL('mailto:10008@ute-sei.org')}
+                            >
                                 <View style={styles.iconCircle}>
                                     <Mail size={24} color="#F03F33" />
                                 </View>
@@ -199,9 +168,16 @@ Thank you.`;
                                     <Text style={[styles.contactLabel, { color: colors.subtitle }]}>{t('common.email')}</Text>
                                     <Text style={[styles.contactValue, { color: colors.text }]}>10008@ute-sei.org</Text>
                                 </View>
-                            </View>
+                            </Pressable>
 
-                            <View style={[styles.contactItem, { backgroundColor: colors.card, borderColor: colors.border }]}>
+                            <Pressable
+                                style={({ pressed }) => [
+                                    styles.contactItem,
+                                    { backgroundColor: colors.card, borderColor: colors.border },
+                                    pressed && { opacity: 0.7 }
+                                ]}
+                                onPress={() => Linking.openURL('tel:4387880300')}
+                            >
                                 <View style={styles.iconCircle}>
                                     <Phone size={24} color="#F03F33" />
                                 </View>
@@ -209,7 +185,7 @@ Thank you.`;
                                     <Text style={[styles.contactLabel, { color: colors.subtitle }]}>{t('common.phone')}</Text>
                                     <Text style={[styles.contactValue, { color: colors.text }]}>(438) 788-0300</Text>
                                 </View>
-                            </View>
+                            </Pressable>
                         </View>
 
                         <View style={styles.messageSection}>
@@ -218,10 +194,10 @@ Thank you.`;
                                     <Text style={[styles.messageLabel, { color: colors.text }]}>{t('contact.prefilledMessage')}</Text>
                                     <Pressable
                                         onPress={handleResetMessage}
-                                        style={styles.resetButton}
+                                        style={[styles.resetButton, { backgroundColor: colors.card, borderColor: colors.border }]}
                                         hitSlop={8}
                                     >
-                                        <RotateCcw size={18} color={colors.subtitle} />
+                                        <RotateCcw size={18} color={colors.text} />
                                     </Pressable>
                                 </View>
                                 {notes.length > 0 && (
@@ -344,7 +320,7 @@ Thank you.`;
 const styles = StyleSheet.create({
     background: {
         flex: 1,
-        backgroundColor: '#FAFAFA',
+        backgroundColor: '#FFFFFF',
     },
     container: {
         flex: 1,
@@ -355,37 +331,40 @@ const styles = StyleSheet.create({
         paddingVertical: 24,
     },
     header: {
-        fontSize: 26,
-        fontWeight: '700' as const,
-        color: '#1F2937',
-        marginBottom: 24,
+        fontSize: 32,
+        fontWeight: '900' as const,
+        color: '#000000',
+        marginBottom: 32,
+        textTransform: 'uppercase',
     },
     contactInfo: {
-        gap: 16,
+        gap: 20,
         marginBottom: 32,
     },
     contactItem: {
         backgroundColor: '#FFFFFF',
-        borderRadius: 16,
+        borderRadius: 4,
         padding: 20,
         flexDirection: 'row',
         alignItems: 'center',
         gap: 16,
-        borderWidth: 2,
-        borderColor: '#FEE2E2',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.05,
-        shadowRadius: 4,
-        elevation: 2,
+        borderWidth: 3,
+        borderColor: '#000000',
+        shadowColor: '#000000',
+        shadowOffset: { width: 4, height: 4 },
+        shadowOpacity: 1,
+        shadowRadius: 0,
+        elevation: 0,
     },
     iconCircle: {
         width: 56,
         height: 56,
-        borderRadius: 28,
-        backgroundColor: '#FEF2F2',
+        borderRadius: 4,
+        backgroundColor: '#FEE2E2',
         alignItems: 'center',
         justifyContent: 'center',
+        borderWidth: 2,
+        borderColor: '#000000',
     },
     contactDetails: {
         flex: 1,
@@ -393,24 +372,22 @@ const styles = StyleSheet.create({
     },
     contactLabel: {
         fontSize: 14,
-        fontWeight: '600' as const,
-        color: '#6B7280',
+        fontWeight: '900' as const,
+        color: '#000000',
         textTransform: 'uppercase' as const,
         letterSpacing: 0.5,
     },
     contactValue: {
-        fontSize: 17,
-        fontWeight: '600' as const,
-        color: '#1F2937',
+        fontSize: 18,
+        fontWeight: '700' as const,
+        color: '#000000',
     },
     messageSection: {
-        marginBottom: 20,
+        marginBottom: 24,
     },
     messageHeaderRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: 8,
+        gap: 16,
+        marginBottom: 16,
     },
     messageLabelRow: {
         flexDirection: 'row',
@@ -418,82 +395,103 @@ const styles = StyleSheet.create({
         gap: 8,
     },
     messageLabel: {
-        fontSize: 18,
-        fontWeight: '700' as const,
-        color: '#1F2937',
+        fontSize: 20,
+        fontWeight: '900' as const,
+        color: '#000000',
+        textTransform: 'uppercase',
     },
     resetButton: {
         padding: 4,
+        backgroundColor: '#FFFFFF',
+        borderWidth: 2,
+        borderColor: '#000000',
+        borderRadius: 4,
     },
     importButton: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 6,
-        paddingVertical: 6,
+        justifyContent: 'center',
+        gap: 8,
+        paddingVertical: 12,
         paddingHorizontal: 12,
-        backgroundColor: '#FEF2F2',
-        borderRadius: 20,
-        borderWidth: 1,
-        borderColor: '#FEE2E2',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 4,
+        borderWidth: 2,
+        borderColor: '#000000',
+        shadowColor: '#000000',
+        shadowOffset: { width: 2, height: 2 },
+        shadowOpacity: 1,
+        shadowRadius: 0,
     },
     importButtonText: {
-        fontSize: 13,
-        fontWeight: '600' as const,
+        fontSize: 14,
+        fontWeight: '700' as const,
         color: '#F03F33',
+        textTransform: 'uppercase',
     },
     messageHint: {
-        fontSize: 14,
-        color: '#6B7280',
+        fontSize: 16,
+        color: '#000000',
         marginBottom: 12,
+        fontWeight: '500',
     },
     messageInput: {
         backgroundColor: '#FFFFFF',
-        borderRadius: 12,
+        borderRadius: 4,
         padding: 16,
-        fontSize: 15,
-        color: '#1F2937',
-        borderWidth: 2,
-        borderColor: '#E5E7EB',
+        fontSize: 16,
+        color: '#000000',
+        borderWidth: 3,
+        borderColor: '#000000',
         minHeight: 240,
-        lineHeight: 22,
+        lineHeight: 24,
+        fontWeight: '500',
     },
     actionButtons: {
         flexDirection: 'row',
-        gap: 12,
-        marginBottom: 20,
+        gap: 16,
+        marginBottom: 24,
     },
     emailButton: {
         flex: 1,
         backgroundColor: '#F03F33',
-        borderRadius: 16,
-        padding: 18,
+        borderRadius: 4,
+        padding: 20,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
         gap: 12,
-        shadowColor: '#F03F33',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 8,
-        elevation: 6,
+        borderWidth: 3,
+        borderColor: '#000000',
+        shadowColor: '#000000',
+        shadowOffset: { width: 4, height: 4 },
+        shadowOpacity: 1,
+        shadowRadius: 0,
+        elevation: 0,
     },
     emailButtonText: {
-        fontSize: 17,
-        fontWeight: '600' as const,
+        fontSize: 20,
+        fontWeight: '900' as const,
         color: '#FFFFFF',
+        textTransform: 'uppercase',
     },
     copyButton: {
-        width: 60,
+        width: 64,
         backgroundColor: '#FFFFFF',
-        borderRadius: 16,
+        borderRadius: 4,
         padding: 18,
         alignItems: 'center',
         justifyContent: 'center',
-        borderWidth: 2,
-        borderColor: '#E5E7EB',
+        borderWidth: 3,
+        borderColor: '#000000',
+        shadowColor: '#000000',
+        shadowOffset: { width: 4, height: 4 },
+        shadowOpacity: 1,
+        shadowRadius: 0,
+        elevation: 0,
     },
     copyButtonCopied: {
-        borderColor: '#10B981',
+        borderColor: '#000000',
         backgroundColor: '#F0FDF4',
     },
     copyButtonText: {
@@ -503,36 +501,43 @@ const styles = StyleSheet.create({
         display: 'none',
     },
     buttonPressed: {
-        opacity: 0.7,
+        transform: [{ translateX: 2 }, { translateY: 2 }],
+        shadowOffset: { width: 2, height: 2 },
+        opacity: 1,
     },
     infoBox: {
         backgroundColor: '#EFF6FF',
-        borderLeftWidth: 4,
+        borderLeftWidth: 8,
         borderLeftColor: '#3B82F6',
-        padding: 16,
-        borderRadius: 12,
+        padding: 24,
+        borderRadius: 4,
+        borderWidth: 3,
+        borderColor: '#000000',
+        shadowColor: '#000000',
+        shadowOffset: { width: 4, height: 4 },
+        shadowOpacity: 1,
+        shadowRadius: 0,
     },
     infoText: {
-        fontSize: 14,
-        color: '#1E40AF',
-        lineHeight: 22,
+        fontSize: 16,
+        color: '#000000',
+        lineHeight: 24,
+        fontWeight: '600',
     },
     modalOverlay: {
         flex: 1,
-        backgroundColor: 'rgba(0,0,0,0.5)',
+        backgroundColor: 'rgba(0,0,0,0.7)',
         justifyContent: 'flex-end',
     },
     modalContent: {
         backgroundColor: '#FFFFFF',
-        borderTopLeftRadius: 24,
-        borderTopRightRadius: 24,
+        borderTopLeftRadius: 4,
+        borderTopRightRadius: 4,
         height: '70%',
         paddingTop: 24,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: -4 },
-        shadowOpacity: 0.1,
-        shadowRadius: 12,
-        elevation: 20,
+        borderWidth: 4,
+        borderColor: '#000000',
+        borderBottomWidth: 0,
     },
     modalHeader: {
         flexDirection: 'row',
@@ -541,13 +546,14 @@ const styles = StyleSheet.create({
         paddingHorizontal: 24,
         marginBottom: 16,
         paddingBottom: 16,
-        borderBottomWidth: 1,
-        borderBottomColor: '#F3F4F6',
+        borderBottomWidth: 3,
+        borderBottomColor: '#000000',
     },
     modalTitle: {
-        fontSize: 20,
-        fontWeight: '700' as const,
-        color: '#1F2937',
+        fontSize: 24,
+        fontWeight: '900' as const,
+        color: '#000000',
+        textTransform: 'uppercase',
     },
     listContent: {
         paddingHorizontal: 24,
@@ -557,31 +563,34 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingVertical: 16,
-        borderBottomWidth: 1,
-        borderBottomColor: '#F3F4F6',
+        borderBottomWidth: 2,
+        borderBottomColor: '#E5E7EB',
         gap: 16,
     },
     noteIcon: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
+        width: 48,
+        height: 48,
+        borderRadius: 4,
         backgroundColor: '#F3F4F6',
         alignItems: 'center',
         justifyContent: 'center',
+        borderWidth: 2,
+        borderColor: '#000000',
     },
     noteInfo: {
         flex: 1,
         gap: 4,
     },
     noteDate: {
-        fontSize: 13,
-        color: '#6B7280',
-        fontWeight: '500' as const,
+        fontSize: 14,
+        color: '#000000',
+        fontWeight: '700' as const,
+        textTransform: 'uppercase',
     },
     noteSubject: {
-        fontSize: 16,
-        fontWeight: '600' as const,
-        color: '#1F2937',
+        fontSize: 18,
+        fontWeight: '700' as const,
+        color: '#000000',
     },
     emptyContainer: {
         flex: 1,
@@ -590,7 +599,8 @@ const styles = StyleSheet.create({
         paddingBottom: 100,
     },
     emptyText: {
-        fontSize: 16,
-        color: '#6B7280',
+        fontSize: 18,
+        color: '#000000',
+        fontWeight: '600',
     },
 });

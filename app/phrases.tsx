@@ -7,6 +7,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/contexts/ThemeContext';
 
+import { ScreenHeader } from '@/components/ScreenHeader';
+
 export default function PhrasesScreen() {
     const router = useRouter();
     const { t } = useTranslation();
@@ -28,15 +30,9 @@ export default function PhrasesScreen() {
 
     return (
         <View style={[styles.background, { backgroundColor: colors.background }]}>
-            <Stack.Screen
-                options={{
-                    title: t('common.back'),
-                    headerStyle: { backgroundColor: '#F03F33' },
-                    headerTintColor: '#FFFFFF',
-                    headerTitleStyle: { fontWeight: '700' as const },
-                }}
-            />
-            <SafeAreaView style={styles.container} edges={['bottom']}>
+            <Stack.Screen options={{ headerShown: false }} />
+            <ScreenHeader />
+            <SafeAreaView style={styles.container} edges={['bottom', 'left', 'right']}>
                 <ScrollView
                     contentContainerStyle={styles.scrollContent}
                     showsVerticalScrollIndicator={false}
@@ -64,11 +60,11 @@ export default function PhrasesScreen() {
                                 ]}>
                                     {phrase}
                                 </Text>
-                                <View style={styles.copyIcon}>
+                                <View style={[styles.copyIcon, { backgroundColor: colors.card, borderColor: colors.border }]}>
                                     {copiedIndex === index ? (
                                         <Check size={20} color="#059669" strokeWidth={2.5} />
                                     ) : (
-                                        <Copy size={20} color={colors.subtitle} />
+                                        <Copy size={20} color={colors.text} />
                                     )}
                                 </View>
                             </Pressable>
@@ -94,7 +90,7 @@ export default function PhrasesScreen() {
 const styles = StyleSheet.create({
     background: {
         flex: 1,
-        backgroundColor: '#FAFAFA',
+        backgroundColor: '#FFFFFF',
     },
     container: {
         flex: 1,
@@ -105,37 +101,40 @@ const styles = StyleSheet.create({
         paddingVertical: 24,
     },
     header: {
-        fontSize: 26,
-        fontWeight: '700' as const,
-        color: '#1F2937',
+        fontSize: 32,
+        fontWeight: '900' as const,
+        color: '#000000',
         marginBottom: 8,
+        textTransform: 'uppercase',
     },
     subheader: {
-        fontSize: 15,
-        color: '#6B7280',
-        marginBottom: 24,
+        fontSize: 18,
+        color: '#000000',
+        marginBottom: 32,
+        fontWeight: '600',
     },
     phrasesList: {
-        gap: 16,
+        gap: 20,
         marginBottom: 32,
     },
     phraseCard: {
         backgroundColor: '#FFFFFF',
-        borderRadius: 16,
-        padding: 20,
-        borderWidth: 2,
-        borderColor: '#E5E7EB',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.05,
-        shadowRadius: 4,
-        elevation: 2,
+        borderRadius: 4,
+        padding: 24,
+        borderWidth: 3,
+        borderColor: '#000000',
+        shadowColor: '#000000',
+        shadowOffset: { width: 4, height: 4 },
+        shadowOpacity: 1,
+        shadowRadius: 0,
+        elevation: 0,
         flexDirection: 'row',
         alignItems: 'center',
         gap: 16,
     },
     phraseCardPressed: {
-        opacity: 0.7,
+        transform: [{ translateX: 2 }, { translateY: 2 }],
+        shadowOffset: { width: 2, height: 2 },
     },
     phraseCardCopied: {
         borderColor: '#10B981',
@@ -143,28 +142,41 @@ const styles = StyleSheet.create({
     },
     phraseText: {
         flex: 1,
-        fontSize: 16,
-        color: '#1F2937',
-        lineHeight: 24,
+        fontSize: 18,
+        color: '#000000',
+        lineHeight: 26,
+        fontWeight: '700',
     },
     copyIcon: {
         padding: 4,
+        borderWidth: 2,
+        borderColor: '#000000',
+        borderRadius: 4,
+        backgroundColor: '#FFFFFF',
     },
     backButton: {
         backgroundColor: '#FFFFFF',
-        borderRadius: 16,
-        padding: 18,
+        borderRadius: 4,
+        padding: 20,
         alignItems: 'center',
-        borderWidth: 2,
-        borderColor: '#FEE2E2',
+        borderWidth: 3,
+        borderColor: '#000000',
         marginTop: 'auto' as const,
+        shadowColor: '#000000',
+        shadowOffset: { width: 4, height: 4 },
+        shadowOpacity: 1,
+        shadowRadius: 0,
+        elevation: 0,
     },
     backButtonText: {
-        fontSize: 17,
-        fontWeight: '600' as const,
+        fontSize: 20,
+        fontWeight: '900' as const,
         color: '#F03F33',
+        textTransform: 'uppercase',
     },
     buttonPressed: {
-        opacity: 0.7,
+        transform: [{ translateX: 2 }, { translateY: 2 }],
+        shadowOffset: { width: 2, height: 2 },
+        opacity: 1,
     },
 });

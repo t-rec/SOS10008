@@ -4,32 +4,46 @@ const tintColorDark = "#fff";
 
 export const Colors = {
     light: {
-        text: "#1F2937",
-        background: "#FAFAFA",
+        text: "#000000",
+        background: "#FFFFFF",
         card: "#FFFFFF",
         tint: tintColorLight,
-        tabIconDefault: "#ccc",
-        tabIconSelected: tintColorLight,
-        border: "#E5E7EB",
-        subtitle: "#4B5563",
+        tabIconDefault: "#000000",
+        tabIconSelected: brandRed,
+        border: "#000000",
+        subtitle: "#000000",
         brand: brandRed,
+        accent: "#FFDD00",
         secondaryButton: "#FFFFFF",
-        secondaryButtonText: "#1F2937",
-        secondaryButtonBorder: "#FEE2E2",
+        secondaryButtonText: "#000000",
+        secondaryButtonBorder: "#000000",
+        shadow: "#000000",
+        primaryShadow: "#000000",
+        primaryBorder: "#000000",
+        success: "#10B981", // Bright green
+        error: "#EF4444",   // Bright red
+        info: "#3B82F6",    // Bright blue
     },
     dark: {
-        text: "#F9FAFB",
-        background: "#111827", // gray-900
-        card: "#1F2937", // gray-800
+        text: "#FFFFFF",
+        background: "#000000",
+        card: "#1A1A1A",
         tint: tintColorDark,
-        tabIconDefault: "#ccc",
-        tabIconSelected: tintColorDark,
-        border: "#374151", // gray-700
-        subtitle: "#9CA3AF", // gray-400
+        tabIconDefault: "#FFFFFF",
+        tabIconSelected: brandRed,
+        border: "#FFFFFF",
+        subtitle: "#FFFFFF",
         brand: brandRed,
-        secondaryButton: "#1F2937",
-        secondaryButtonText: "#F9FAFB",
-        secondaryButtonBorder: "#374151",
+        accent: "#00FF88",
+        secondaryButton: "#000000",
+        secondaryButtonText: "#FFFFFF",
+        secondaryButtonBorder: "#FFFFFF",
+        shadow: brandRed,
+        primaryShadow: "transparent",
+        primaryBorder: "#FFFFFF",
+        success: "#10B981",
+        error: "#EF4444",
+        info: "#3B82F6",
     },
 };
 

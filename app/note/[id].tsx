@@ -11,6 +11,7 @@ import DeleteConfirmationModal from '@/components/DeleteConfirmationModal';
 import { useTranslation } from 'react-i18next';
 import { useDateTimeFormat } from '@/hooks/useDateTimeFormat';
 import { useTheme } from '@/contexts/ThemeContext';
+import { ScreenHeader } from '@/components/ScreenHeader';
 
 export default function NoteDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -18,7 +19,7 @@ export default function NoteDetailScreen() {
   const { getNoteById, deleteNote } = useNotes();
   const { t } = useTranslation();
   const { colors } = useTheme();
-  const { formatDate } = useDateTimeFormat();
+  const { formatDate, formatTime } = useDateTimeFormat();
 
   // All hooks must be at the top, before any conditional returns
   const [copied, setCopied] = useState<boolean>(false);
@@ -35,7 +36,7 @@ export default function NoteDetailScreen() {
 ${t('noteDetail.copyTemplate.title')}
 
 ${t('noteDetail.copyTemplate.date')}: ${formatDate(note.date)}
-${t('noteDetail.copyTemplate.time')}: ${note.time}
+${t('noteDetail.copyTemplate.time')}: ${formatTime(note.time)}
 ${t('noteDetail.copyTemplate.manager')}: ${note.managerName}
 ${t('noteDetail.copyTemplate.subject')}: ${note.subject}
 
@@ -91,15 +92,9 @@ ${note.witnesses || 'N/A'}
 
   return (
     <View style={[styles.background, { backgroundColor: colors.background }]}>
-      <Stack.Screen
-        options={{
-          title: t('common.back'),
-          headerStyle: { backgroundColor: '#F03F33' },
-          headerTintColor: '#FFFFFF',
-          headerTitleStyle: { fontWeight: '700' as const },
-        }}
-      />
-      <SafeAreaView style={styles.container} edges={['bottom']}>
+      <Stack.Screen options={{ headerShown: false }} />
+      <ScreenHeader />
+      <SafeAreaView style={styles.container} edges={['bottom', 'left', 'right']}>
         <ScrollView
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
@@ -107,7 +102,7 @@ ${note.witnesses || 'N/A'}
           <View style={[styles.detailCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
             <View style={[styles.headerRow, { borderBottomColor: colors.secondaryButtonBorder }]}>
               <Text style={[styles.dateText, { color: colors.brand }]}>
-                {formatDate(note.date)} à {note.time}
+                {formatDate(note.date)} à {formatTime(note.time)}
               </Text>
             </View>
 
@@ -182,7 +177,7 @@ ${note.witnesses || 'N/A'}
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: '#FAFAFA',
+    backgroundColor: '#FFFFFF',
   },
   container: {
     flex: 1,
@@ -199,87 +194,107 @@ const styles = StyleSheet.create({
   },
   errorText: {
     fontSize: 18,
-    color: '#6B7280',
+    color: '#000000',
+    fontWeight: '700',
   },
   detailCard: {
     backgroundColor: '#FFFFFF',
-    borderRadius: 16,
+    borderRadius: 4,
     padding: 24,
-    borderWidth: 2,
-    borderColor: '#E5E7EB',
-    gap: 20,
+    borderWidth: 3,
+    borderColor: '#000000',
+    shadowColor: '#000000',
+    shadowOffset: { width: 4, height: 4 },
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    elevation: 0,
+    gap: 24,
     marginBottom: 24,
   },
   headerRow: {
-    borderBottomWidth: 2,
-    borderBottomColor: '#FEE2E2',
+    borderBottomWidth: 3,
+    borderBottomColor: '#000000',
     paddingBottom: 16,
   },
   dateText: {
-    fontSize: 16,
-    fontWeight: '700' as const,
+    fontSize: 18,
+    fontWeight: '900' as const,
     color: '#F03F33',
+    textTransform: 'uppercase',
   },
   section: {
     gap: 8,
   },
   label: {
-    fontSize: 14,
-    fontWeight: '600' as const,
-    color: '#6B7280',
+    fontSize: 16,
+    fontWeight: '900' as const,
+    color: '#000000',
     textTransform: 'uppercase' as const,
     letterSpacing: 0.5,
   },
   value: {
-    fontSize: 17,
-    color: '#1F2937',
-    lineHeight: 26,
+    fontSize: 18,
+    color: '#000000',
+    lineHeight: 28,
+    fontWeight: '500',
   },
   buttonsContainer: {
-    gap: 12,
+    gap: 16,
   },
   copyButton: {
     backgroundColor: '#F03F33',
-    borderRadius: 16,
-    padding: 18,
+    borderRadius: 4,
+    padding: 20,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 12,
-    shadowColor: '#F03F33',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 6,
+    borderWidth: 3,
+    borderColor: '#000000',
+    shadowColor: '#000000',
+    shadowOffset: { width: 4, height: 4 },
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    elevation: 0,
   },
   copyButtonCopied: {
     backgroundColor: '#10B981',
+    borderColor: '#000000',
   },
   copyButtonText: {
-    fontSize: 17,
-    fontWeight: '600' as const,
+    fontSize: 20,
+    fontWeight: '900' as const,
     color: '#FFFFFF',
+    textTransform: 'uppercase',
   },
   copyButtonTextCopied: {
     color: '#FFFFFF',
   },
   deleteButton: {
     backgroundColor: '#FFFFFF',
-    borderRadius: 16,
-    padding: 18,
+    borderRadius: 4,
+    padding: 20,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 12,
-    borderWidth: 2,
-    borderColor: '#FEE2E2',
+    borderWidth: 3,
+    borderColor: '#000000',
+    shadowColor: '#000000',
+    shadowOffset: { width: 4, height: 4 },
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    elevation: 0,
   },
   deleteButtonText: {
-    fontSize: 17,
-    fontWeight: '600' as const,
+    fontSize: 20,
+    fontWeight: '900' as const,
     color: '#F03F33',
+    textTransform: 'uppercase',
   },
   buttonPressed: {
-    opacity: 0.7,
+    transform: [{ translateX: 2 }, { translateY: 2 }],
+    shadowOffset: { width: 2, height: 2 },
+    opacity: 1,
   },
 });

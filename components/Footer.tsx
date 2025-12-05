@@ -1,13 +1,24 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Image, Pressable, LayoutAnimation, Platform, UIManager } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '@/contexts/ThemeContext';
+import { ChevronUp, ChevronDown } from 'lucide-react-native';
+
+if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+}
 
 export function Footer() {
     const { t } = useTranslation();
-    const { colors } = useTheme();
+    const { colors, activeTheme } = useTheme();
     const insets = useSafeAreaInsets();
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const toggleFooter = () => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        setIsExpanded(!isExpanded);
+    };
 
     return (
         <View style={[styles.container, {
@@ -15,19 +26,44 @@ export function Footer() {
             backgroundColor: colors.background,
             borderTopColor: colors.border
         }]}>
-            <Text style={[styles.disclaimer, { color: colors.subtitle }]}>
-                {t('footer.disclaimer')}
-            </Text>
-            <View style={styles.solidarityRow}>
+            {isExpanded && (
+                <Text style={[styles.disclaimer, { color: colors.subtitle }]}>
+                    {t('footer.disclaimer')}
+                </Text>
+            )}
+
+            <Pressable
+                onPress={toggleFooter}
+                style={[
+                    styles.solidarityRow,
+                    { backgroundColor: '#F03F33' }
+                ]}
+            >
                 <Image
                     source={require('../assets/images/10008-Icon.png')}
-                    style={styles.icon}
+                    style={[styles.icon, { tintColor: '#FFFFFF' }]}
                     resizeMode="contain"
                 />
-                <Text style={[styles.solidarityText, { color: colors.brand }]}>
+                <Text style={[
+                    styles.solidarityText,
+                    { color: '#FFFFFF' }
+                ]}>
                     {t('footer.solidarity')}
                 </Text>
-            </View>
+                {isExpanded ? (
+                    <ChevronDown
+                        size={20}
+                        color="#FFFFFF"
+                        strokeWidth={3}
+                    />
+                ) : (
+                    <ChevronUp
+                        size={20}
+                        color="#FFFFFF"
+                        strokeWidth={3}
+                    />
+                )}
+            </Pressable>
         </View>
     );
 }
@@ -35,33 +71,39 @@ export function Footer() {
 const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 20,
-        paddingTop: 16,
-        backgroundColor: '#F9FAFB',
-        borderTopWidth: 1,
-        borderTopColor: '#E5E7EB',
+        paddingTop: 20,
+        backgroundColor: '#FFFFFF',
+        borderTopWidth: 4,
+        borderTopColor: '#000000',
         alignItems: 'center',
-        gap: 12,
+        gap: 16,
     },
     disclaimer: {
-        fontSize: 10,
-        color: '#9CA3AF',
+        fontSize: 12,
+        fontWeight: '700',
+        color: '#000000',
         textAlign: 'center',
-        lineHeight: 14,
+        lineHeight: 16,
+        textTransform: 'uppercase',
     },
     solidarityRow: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 8,
+        gap: 12,
+        backgroundColor: '#000000',
+        paddingHorizontal: 16,
+        paddingVertical: 8,
+        transform: [{ rotate: '-1deg' }], // Slight tilt for brutalist feel
     },
     icon: {
-        width: 20,
-        height: 20,
+        width: 24,
+        height: 24,
     },
     solidarityText: {
-        fontSize: 12,
-        fontWeight: '700',
-        color: '#F03F33',
+        fontSize: 14,
+        fontWeight: '900',
+        color: '#FFFFFF',
         textTransform: 'uppercase',
-        letterSpacing: 0.5,
+        letterSpacing: 1,
     },
 });

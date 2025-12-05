@@ -54,11 +54,25 @@ export const Colors = {
   light: {
     background: '#FFFFFF',
     text: '#000000',
+    brand: '#F03F33',
+    border: '#000000',
+    shadow: '#000000',
+    primaryShadow: '#000000',  // Shadow for red buttons
+    primaryBorder: '#000000',  // Border for red buttons
+    secondaryButton: '#FFFFFF',
+    secondaryButtonBorder: '#000000',
     // ...
   },
   dark: {
-    background: '#111827',
+    background: '#000000',
     text: '#FFFFFF',
+    brand: '#F03F33',
+    border: '#FFFFFF',
+    shadow: '#F03F33',         // Shadow for secondary buttons
+    primaryShadow: 'transparent', // No shadow for red buttons in dark mode
+    primaryBorder: '#FFFFFF',  // White border for red buttons in dark mode
+    secondaryButton: '#000000',
+    secondaryButtonBorder: '#FFFFFF',
     // ...
   }
 };
@@ -90,8 +104,8 @@ export default function MyScreen() {
 ```typescript
 interface Note {
   id: string;
-  date: string;
-  time: string;
+  date: string; // ISO 8601 string (e.g. "2023-11-20T14:00:00.000Z")
+  time: string; // ISO 8601 string (redundant but consistent)
   managerName: string;
   subject: string;
   description: string;
@@ -125,7 +139,7 @@ export default function MyComponent() {
 - `react-i18next` for translations
 - `app/i18n/locales/` contains JSON files
 - User preference saved to AsyncStorage
-- `useDateTimeFormat` hook for locale-aware formatting
+- `useDateTimeFormat` hook for locale-aware formatting (with ISO support + legacy fallback)
 
 **Adding Translations:**
 1. Open `app/i18n/locales/en.json` and `fr.json`
@@ -147,7 +161,11 @@ export default function MyComponent() {
 import { useDateTimeFormat } from '@/hooks/useDateTimeFormat';
 
 const { formatDate, formatTime } = useDateTimeFormat();
-const formattedDate = formatDate('2025-11-30'); // FR: 2025-11-30, EN: 11/30/2025
+
+// Use ISO strings for best results
+const isoDate = '2025-11-30T14:30:00.000Z';
+const displayDate = formatDate(isoDate); // FR: 2025-11-30, EN: 11/30/2025
+const displayTime = formatTime(isoDate); // FR: 14:30, EN: 2:30 PM
 ```
 
 ## Common Patterns
@@ -228,6 +246,26 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 });
+
+### Custom Screen Header (Subpages)
+Use the custom `ScreenHeader` component to disable the native iOS "glass pill" style.
+
+```tsx
+import { ScreenHeader } from '@/components/ScreenHeader';
+import { Stack } from 'expo-router';
+
+export default function MySubpage() {
+  return (
+    <View style={{ flex: 1 }}>
+        {/* Disable native header and use custom one */}
+        <Stack.Screen options={{ headerShown: false }} />
+        <ScreenHeader />
+        
+        {/* Page Content */}
+    </View>
+  );
+}
+```
 ```
 
 ## Key Files to Know

@@ -19,23 +19,30 @@ export default function BackButton() {
                 pressed && styles.pressed,
             ]}
         >
-            <ChevronLeft color="#000000" size={24} strokeWidth={2.5} />
+            <ChevronLeft color="#000000" size={28} strokeWidth={3} />
         </Pressable>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-        backgroundColor: '#FFCDD2', // Light red/pink to match the image
+        width: 44,
+        height: 44,
+        borderRadius: 4,
+        backgroundColor: '#FFFFFF',
         alignItems: 'center',
         justifyContent: 'center',
-        marginLeft: 8, // Add some margin from the edge
-        marginRight: 16, // Add space between button and title
+        marginLeft: 8,
+        marginRight: 16,
+        borderWidth: 3,
+        borderColor: '#000000',
+        shadowColor: '#000000',
+        shadowOffset: { width: 4, height: 4 },
+        shadowOpacity: 1,
+        shadowRadius: 0,
     },
     pressed: {
-        opacity: 0.7,
+        transform: [{ translateX: 2 }, { translateY: 2 }],
+        shadowOffset: { width: 2, height: 2 },
     },
 });

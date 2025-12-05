@@ -14,15 +14,15 @@ export function LanguageToggle() {
     };
 
     return (
-        <Pressable onPress={toggleLanguage} style={[styles.container, { backgroundColor: colors.border }]}>
-            <View style={[styles.switch, isFrench ? styles.switchLeft : styles.switchRight, { backgroundColor: colors.card }]}>
-                <Text style={[styles.switchText, { color: colors.brand }]}>{isFrench ? 'FR' : 'EN'}</Text>
+        <Pressable onPress={toggleLanguage} style={[styles.container, { backgroundColor: colors.card, borderColor: colors.border }]}>
+            <View style={[styles.switch, isFrench ? styles.switchLeft : styles.switchRight, { backgroundColor: colors.brand }]}>
+                <Text style={[styles.switchText, { color: '#FFFFFF' }]}>{isFrench ? 'FR' : 'EN'}</Text>
             </View>
             <View style={styles.labelLeft}>
-                <Text style={[styles.label, { color: isFrench ? colors.text : colors.subtitle }]}>FR</Text>
+                <Text style={[styles.label, { color: colors.text }]}>FR</Text>
             </View>
             <View style={styles.labelRight}>
-                <Text style={[styles.label, { color: !isFrench ? colors.text : colors.subtitle }]}>EN</Text>
+                <Text style={[styles.label, { color: colors.text }]}>EN</Text>
             </View>
         </Pressable>
     );
@@ -30,17 +30,23 @@ export function LanguageToggle() {
 
 const styles = StyleSheet.create({
     container: {
-        width: 80,
-        height: 36,
-        backgroundColor: '#E5E7EB',
-        borderRadius: 18,
-        padding: 2,
+        width: 90,
+        height: 44,
+        backgroundColor: '#FFFFFF',
+        borderRadius: 4,
+        padding: 4,
         justifyContent: 'center',
+        borderWidth: 3,
+        borderColor: '#000000',
+        shadowColor: '#000000',
+        shadowOffset: { width: 4, height: 4 },
+        shadowOpacity: 1,
+        shadowRadius: 0,
     },
     labelLeft: {
         position: 'absolute',
         left: 0,
-        width: 40,
+        width: 45,
         height: '100%',
         justifyContent: 'center',
         alignItems: 'center',
@@ -49,33 +55,29 @@ const styles = StyleSheet.create({
     labelRight: {
         position: 'absolute',
         right: 0,
-        width: 40,
+        width: 45,
         height: '100%',
         justifyContent: 'center',
         alignItems: 'center',
         zIndex: 0,
     },
     label: {
-        fontSize: 12,
-        fontWeight: '600',
-        color: '#9CA3AF',
+        fontSize: 14,
+        fontWeight: '900',
+        color: '#000000',
     },
     activeLabel: {
-        color: '#1F2937',
+        color: '#000000',
     },
     switch: {
-        width: 38,
-        height: 32,
-        backgroundColor: '#FFFFFF',
-        borderRadius: 16,
+        width: 40,
+        height: 30,
+        backgroundColor: '#000000',
+        borderRadius: 2,
         justifyContent: 'center',
         alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.1,
-        shadowRadius: 2,
-        elevation: 2,
         zIndex: 1,
+        borderWidth: 0,
     },
     switchLeft: {
         alignSelf: 'flex-start',
@@ -85,7 +87,7 @@ const styles = StyleSheet.create({
     },
     switchText: {
         fontSize: 12,
-        fontWeight: '700',
-        color: '#F03F33',
+        fontWeight: '900',
+        color: '#FFFFFF',
     },
 });

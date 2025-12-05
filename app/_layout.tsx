@@ -25,15 +25,28 @@ function RootLayoutNav() {
     return (
         <View style={{ flex: 1 }}>
             <Stack screenOptions={{
-                headerBackTitle: '', // Hide the default "Retour" text
-                headerLeft: () => <BackButton />, // Use our custom button
+                headerBackTitle: '',
+                headerBackVisible: false, // Keeping this to try ensuring native back is hidden
+                headerLeft: () => <BackButton />,
                 headerRight: () => (
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 16 }}>
                         <ThemeToggle />
                         <View style={{ width: 12 }} />
                         <LanguageToggle />
                     </View>
-                ), // Add language toggle to all screens with spacing
+                ),
+                headerStyle: {
+                    backgroundColor: '#F03F33',
+                },
+                headerTintColor: '#FFFFFF',
+                headerTitleStyle: {
+                    fontWeight: '900',
+                    fontSize: 20,
+                },
+                contentStyle: {
+                    backgroundColor: '#FFFFFF',
+                },
+                headerShadowVisible: false, // Remove default shadow for cleaner look
             }}>
                 <Stack.Screen name="index" options={{ headerShown: false }} />
                 <Stack.Screen name="emergency" options={{ headerShown: true }} />
@@ -64,45 +77,96 @@ export default function RootLayout() {
                             success: (props) => (
                                 <BaseToast
                                     {...props}
-                                    style={{ borderLeftColor: '#10B981', height: 80, width: '90%' }}
-                                    contentContainerStyle={{ paddingHorizontal: 15 }}
+                                    style={{
+                                        borderLeftColor: '#10B981',
+                                        borderLeftWidth: 12,
+                                        height: 90,
+                                        width: '90%',
+                                        backgroundColor: '#FFFFFF',
+                                        borderWidth: 3,
+                                        borderColor: '#000000',
+                                        borderRadius: 4,
+                                        shadowColor: '#000000',
+                                        shadowOffset: { width: 4, height: 4 },
+                                        shadowOpacity: 1,
+                                        shadowRadius: 0,
+                                        elevation: 0,
+                                    }}
+                                    contentContainerStyle={{ paddingHorizontal: 16 }}
                                     text1Style={{
                                         fontSize: 18,
-                                        fontWeight: '700'
+                                        fontWeight: '900',
+                                        color: '#000000',
+                                        textTransform: 'uppercase',
                                     }}
                                     text2Style={{
                                         fontSize: 16,
-                                        color: '#6B7280'
+                                        color: '#000000',
+                                        fontWeight: '600',
                                     }}
                                 />
                             ),
                             error: (props) => (
                                 <ErrorToast
                                     {...props}
-                                    style={{ borderLeftColor: '#EF4444', height: 80, width: '90%' }}
-                                    contentContainerStyle={{ paddingHorizontal: 15 }}
+                                    style={{
+                                        borderLeftColor: '#EF4444',
+                                        borderLeftWidth: 12,
+                                        height: 90,
+                                        width: '90%',
+                                        backgroundColor: '#FFFFFF',
+                                        borderWidth: 3,
+                                        borderColor: '#000000',
+                                        borderRadius: 4,
+                                        shadowColor: '#000000',
+                                        shadowOffset: { width: 4, height: 4 },
+                                        shadowOpacity: 1,
+                                        shadowRadius: 0,
+                                        elevation: 0,
+                                    }}
+                                    contentContainerStyle={{ paddingHorizontal: 16 }}
                                     text1Style={{
                                         fontSize: 18,
-                                        fontWeight: '700'
+                                        fontWeight: '900',
+                                        color: '#000000',
+                                        textTransform: 'uppercase',
                                     }}
                                     text2Style={{
                                         fontSize: 16,
-                                        color: '#6B7280'
+                                        color: '#000000',
+                                        fontWeight: '600',
                                     }}
                                 />
                             ),
                             info: (props) => (
                                 <BaseToast
                                     {...props}
-                                    style={{ borderLeftColor: '#6B7280', height: 80, width: '90%' }}
-                                    contentContainerStyle={{ paddingHorizontal: 15 }}
+                                    style={{
+                                        borderLeftColor: '#3B82F6',
+                                        borderLeftWidth: 12,
+                                        height: 90,
+                                        width: '90%',
+                                        backgroundColor: '#FFFFFF',
+                                        borderWidth: 3,
+                                        borderColor: '#000000',
+                                        borderRadius: 4,
+                                        shadowColor: '#000000',
+                                        shadowOffset: { width: 4, height: 4 },
+                                        shadowOpacity: 1,
+                                        shadowRadius: 0,
+                                        elevation: 0,
+                                    }}
+                                    contentContainerStyle={{ paddingHorizontal: 16 }}
                                     text1Style={{
                                         fontSize: 18,
-                                        fontWeight: '700'
+                                        fontWeight: '900',
+                                        color: '#000000',
+                                        textTransform: 'uppercase',
                                     }}
                                     text2Style={{
                                         fontSize: 16,
-                                        color: '#6B7280'
+                                        color: '#000000',
+                                        fontWeight: '600',
                                     }}
                                 />
                             )

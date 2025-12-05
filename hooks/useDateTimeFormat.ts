@@ -10,6 +10,10 @@ export function useDateTimeFormat() {
     const formatDate = (date: Date | string): string => {
         const dateObj = typeof date === 'string' ? new Date(date) : date;
 
+        if (isNaN(dateObj.getTime())) {
+            return typeof date === 'string' ? date : '';
+        }
+
         if (isFrench) {
             // French format: YYYY-MM-DD
             return dateObj.toLocaleDateString('fr-CA');
@@ -21,6 +25,10 @@ export function useDateTimeFormat() {
 
     const formatTime = (date: Date | string): string => {
         const dateObj = typeof date === 'string' ? new Date(date) : date;
+
+        if (isNaN(dateObj.getTime())) {
+            return typeof date === 'string' ? date : '';
+        }
 
         if (isFrench) {
             // French format: 24-hour (HH:MM)

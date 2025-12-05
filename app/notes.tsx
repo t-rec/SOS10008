@@ -10,12 +10,14 @@ import { useDateTimeFormat } from '@/hooks/useDateTimeFormat';
 import { useTheme } from '@/contexts/ThemeContext';
 import Toast from 'react-native-toast-message';
 
+import { ScreenHeader } from '@/components/ScreenHeader';
+
 export default function NotesListScreen() {
     const router = useRouter();
     const { notes, isLoading, deleteNote } = useNotes();
     const { t } = useTranslation();
     const { colors } = useTheme();
-    const { formatDate } = useDateTimeFormat();
+    const { formatDate, formatTime } = useDateTimeFormat();
 
     const [noteToDelete, setNoteToDelete] = useState<string | null>(null);
 
@@ -41,15 +43,9 @@ export default function NotesListScreen() {
 
     return (
         <View style={[styles.background, { backgroundColor: colors.background }]}>
-            <Stack.Screen
-                options={{
-                    title: t('common.back'),
-                    headerStyle: { backgroundColor: '#F03F33' },
-                    headerTintColor: '#FFFFFF',
-                    headerTitleStyle: { fontWeight: '700' as const },
-                }}
-            />
-            <SafeAreaView style={styles.container} edges={['bottom']}>
+            <Stack.Screen options={{ headerShown: false }} />
+            <ScreenHeader />
+            <SafeAreaView style={styles.container} edges={['bottom', 'left', 'right']}>
                 <ScrollView
                     contentContainerStyle={styles.scrollContent}
                     showsVerticalScrollIndicator={false}
@@ -89,7 +85,7 @@ export default function NotesListScreen() {
                                 >
                                     <View style={styles.noteHeader}>
                                         <Text style={[styles.noteDate, { color: colors.brand }]}>
-                                            {formatDate(note.date)} à {note.time}
+                                            {formatDate(note.date)} à {formatTime(note.time)}
                                         </Text>
                                         <View onStartShouldSetResponder={() => true}>
                                             <Pressable
@@ -132,14 +128,14 @@ export default function NotesListScreen() {
                 onCancel={() => setNoteToDelete(null)}
                 onConfirm={confirmDelete}
             />
-        </View>
+        </View >
     );
 }
 
 const styles = StyleSheet.create({
     background: {
         flex: 1,
-        backgroundColor: '#FAFAFA',
+        backgroundColor: '#FFFFFF',
     },
     container: {
         flex: 1,
@@ -154,37 +150,40 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 60,
-        gap: 12,
+        gap: 16,
     },
     emptyTitle: {
-        fontSize: 20,
-        fontWeight: '600' as const,
-        color: '#6B7280',
+        fontSize: 24,
+        fontWeight: '900' as const,
+        color: '#000000',
         marginTop: 8,
+        textTransform: 'uppercase',
     },
     emptyText: {
-        fontSize: 16,
-        color: '#9CA3AF',
+        fontSize: 18,
+        color: '#000000',
         textAlign: 'center',
+        fontWeight: '500',
     },
     notesList: {
-        gap: 16,
+        gap: 20,
     },
     noteCard: {
         backgroundColor: '#FFFFFF',
-        borderRadius: 16,
-        padding: 20,
-        borderWidth: 2,
-        borderColor: '#E5E7EB',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.05,
-        shadowRadius: 4,
-        elevation: 2,
-        gap: 10,
+        borderRadius: 4,
+        padding: 24,
+        borderWidth: 3,
+        borderColor: '#000000',
+        shadowColor: '#000000',
+        shadowOffset: { width: 4, height: 4 },
+        shadowOpacity: 1,
+        shadowRadius: 0,
+        elevation: 0,
+        gap: 12,
     },
     noteCardPressed: {
-        opacity: 0.7,
+        transform: [{ translateX: 2 }, { translateY: 2 }],
+        shadowOffset: { width: 2, height: 2 },
     },
     noteHeader: {
         flexDirection: 'row',
@@ -192,36 +191,41 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     noteDate: {
-        fontSize: 14,
-        fontWeight: '600' as const,
+        fontSize: 16,
+        fontWeight: '900' as const,
         color: '#F03F33',
+        textTransform: 'uppercase',
     },
     noteSubject: {
-        fontSize: 18,
-        fontWeight: '600' as const,
-        color: '#1F2937',
-        lineHeight: 24,
+        fontSize: 20,
+        fontWeight: '900' as const,
+        color: '#000000',
+        lineHeight: 26,
     },
     noteManager: {
-        fontSize: 15,
-        color: '#6B7280',
+        fontSize: 16,
+        color: '#000000',
+        fontWeight: '600',
     },
     createButton: {
         backgroundColor: '#F03F33',
-        borderRadius: 16,
-        padding: 18,
+        borderRadius: 4,
+        padding: 20,
         marginTop: 24,
         alignItems: 'center',
-        shadowColor: '#F03F33',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 8,
-        elevation: 6,
+        borderWidth: 3,
+        borderColor: '#000000',
+        shadowColor: '#000000',
+        shadowOffset: { width: 4, height: 4 },
+        shadowOpacity: 1,
+        shadowRadius: 0,
+        elevation: 0,
     },
     createButtonText: {
-        fontSize: 17,
-        fontWeight: '700' as const,
+        fontSize: 20,
+        fontWeight: '900' as const,
         color: '#FFFFFF',
+        textTransform: 'uppercase',
     },
     fab: {
         position: 'absolute',
@@ -229,21 +233,25 @@ const styles = StyleSheet.create({
         right: 24,
         width: 64,
         height: 64,
-        borderRadius: 32,
+        borderRadius: 4, // Square FAB for brutalist look
         backgroundColor: '#F03F33',
         alignItems: 'center',
         justifyContent: 'center',
-        shadowColor: '#F03F33',
-        shadowOffset: { width: 0, height: 6 },
-        shadowOpacity: 0.4,
-        shadowRadius: 12,
-        elevation: 8,
+        borderWidth: 3,
+        borderColor: '#000000',
+        shadowColor: '#000000',
+        shadowOffset: { width: 6, height: 6 },
+        shadowOpacity: 1,
+        shadowRadius: 0,
+        elevation: 0,
     },
     fabPressed: {
-        opacity: 0.8,
-        transform: [{ scale: 0.95 }],
+        transform: [{ translateX: 4 }, { translateY: 4 }],
+        shadowOffset: { width: 2, height: 2 },
     },
     buttonPressed: {
-        opacity: 0.7,
+        transform: [{ translateX: 2 }, { translateY: 2 }],
+        shadowOffset: { width: 2, height: 2 },
+        opacity: 1,
     },
 });
