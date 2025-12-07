@@ -2,8 +2,11 @@ import { useRouter } from 'expo-router';
 import { ChevronLeft } from 'lucide-react-native';
 import { Pressable, StyleSheet } from 'react-native';
 
+import { useTheme } from '@/contexts/ThemeContext';
+
 export default function BackButton() {
     const router = useRouter();
+    const { colors } = useTheme();
 
     return (
         <Pressable
@@ -16,10 +19,14 @@ export default function BackButton() {
             }}
             style={({ pressed }) => [
                 styles.container,
+                {
+                    backgroundColor: colors.card,
+                    borderColor: colors.border,
+                },
                 pressed && styles.pressed,
             ]}
         >
-            <ChevronLeft color="#000000" size={28} strokeWidth={3} />
+            <ChevronLeft color={colors.text} size={28} strokeWidth={3} />
         </Pressable>
     );
 }

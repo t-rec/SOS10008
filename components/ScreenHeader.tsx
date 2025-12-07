@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useTheme } from '@/contexts/ThemeContext';
 import { LanguageToggle } from './LanguageToggle';
 import { ThemeToggle } from './ThemeToggle';
 import BackButton from './BackButton';
@@ -11,7 +10,6 @@ interface ScreenHeaderProps {
 }
 
 export function ScreenHeader({ title }: ScreenHeaderProps) {
-    const { colors } = useTheme();
 
     return (
         <SafeAreaView edges={['top']} style={styles.topSafeArea}>

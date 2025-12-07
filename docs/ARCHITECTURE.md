@@ -20,8 +20,10 @@ SOS 10008/
 │           ├── en.json    # English
 │           └── fr.json    # French
 ├── components/            # Reusable UI components
+│   ├── AnimatedSplash.tsx # Premium animated splash screen
 │   ├── BackButton.tsx    # Custom back button
 │   ├── Footer.tsx        # Global footer
+│   ├── ScreenHeader.tsx  # Subpage header with toggles
 │   ├── LanguageToggle.tsx # FR/EN switcher
 │   ├── ThemeToggle.tsx   # Light/Dark/System switcher
 │   └── DeleteConfirmationModal.tsx # Confirmation dialog
@@ -119,12 +121,19 @@ interface Note {
 import { useNotes } from '@/contexts/NotesContext';
 
 export default function MyComponent() {
-  const { notes, addNote, deleteNote } = useNotes();
+  const { notes, addNote, updateNote, deleteNote } = useNotes();
   
   // Add a note
   await addNote({
     date: '2025-11-30',
     managerName: 'John Doe',
+    // ...
+  });
+  
+  // Update a note (edit mode: navigate to /new-note?edit=noteId)
+  await updateNote(noteId, {
+    date: '2025-12-01',
+    managerName: 'Jane Doe',
     // ...
   });
   
@@ -246,6 +255,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 });
+```
 
 ### Custom Screen Header (Subpages)
 Use the custom `ScreenHeader` component to disable the native iOS "glass pill" style.
@@ -265,7 +275,6 @@ export default function MySubpage() {
     </View>
   );
 }
-```
 ```
 
 ## Key Files to Know
@@ -291,13 +300,19 @@ export default function MySubpage() {
 - **Purpose**: Notes data management
 - **Modify when**: Adding new note fields or operations
 
+### `components/AnimatedSplash.tsx`
+- **Purpose**: Premium animated splash screen with gradient backdrop and typography
+- **Modify when**: Changing splash timing, colors, or animations
+- **Note**: Changes hot-reload. Native splash in `app.json` requires rebuild.
+
 ## Development Tips
 
 ### Run the App
 ```bash
-npm start       # Start Expo dev server
-npm run ios     # Open in iOS Simulator
-npm run android # Open in Android Emulator
+npm start       # Start Expo Go (Limited native features)
+npx expo start --dev-client # Start Custom Dev Client (Full native features)
+npm run ios     # Open in iOS Simulator (Native build)
+npm run android # Open in Android Emulator (Native build)
 ```
 
 ### Debugging
@@ -318,3 +333,6 @@ npm run lint    # Check for code issues
 - **@react-native-async-storage/async-storage**: Local storage
 - **react-native-toast-message**: Toast notifications
 - **lucide-react-native**: Icons
+- **expo-dev-client**: Custom development builds
+- **expo-splash-screen**: Native splash control
+- **expo-linear-gradient**: Gradient backgrounds (used in splash)

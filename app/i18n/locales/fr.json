@@ -82,6 +82,7 @@
         "witnessesLabel": "Témoins, personnes présentes, autres détails",
         "witnessesPlaceholder": "Noms des personnes présentes, autres informations pertinentes...",
         "saveButton": "Enregistrer mes notes",
+        "updateButton": "Sauvegarder modifications",
         "cancelButton": "Annuler / Retour",
         "errorManager": "Le nom du gestionnaire est requis",
         "errorSubject": "Le sujet de la rencontre est requis",
@@ -89,8 +90,11 @@
         "toastErrorText": "Veuillez corriger les erreurs affichées en rouge.",
         "toastSuccessTitle": "Succès",
         "toastSuccessText": "Vos notes ont été enregistrées.",
+        "toastUpdateSuccessTitle": "Modifications enregistrées",
+        "toastUpdateSuccessText": "Vos modifications ont été sauvegardées.",
         "toastSaveErrorTitle": "Erreur",
-        "toastSaveErrorText": "Impossible de sauvegarder vos notes."
+        "toastSaveErrorText": "Impossible de sauvegarder vos notes.",
+        "editTitle": "Modifier la note"
     },
     "noteDetail": {
         "notFound": "Note introuvable",
@@ -100,6 +104,7 @@
         "witnesses": "Témoins, personnes présentes, autres détails",
         "copyButton": "Copier tout le texte",
         "copiedButton": "Texte copié !",
+        "editButton": "Modifier cette note",
         "deleteButton": "Supprimer cette note",
         "copyErrorTitle": "Erreur",
         "copyErrorText": "Impossible de copier le texte",

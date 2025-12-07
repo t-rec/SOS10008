@@ -16,7 +16,7 @@ export default function EmergencyScreen() {
         <View style={[styles.background, { backgroundColor: colors.background }]}>
             <Stack.Screen options={{ headerShown: false }} />
             <ScreenHeader />
-            <SafeAreaView style={styles.container} edges={['bottom', 'left', 'right']}>
+            <SafeAreaView style={styles.container} edges={['left', 'right']}>
                 <ScrollView
                     contentContainerStyle={styles.scrollContent}
                     showsVerticalScrollIndicator={false}
@@ -107,7 +107,8 @@ const styles = StyleSheet.create({
     scrollContent: {
         flexGrow: 1,
         paddingHorizontal: 24,
-        paddingVertical: 24,
+        paddingTop: 24,
+        paddingBottom: 0,
     },
     alertBox: {
         backgroundColor: '#FEF2F2',
@@ -158,6 +159,7 @@ const styles = StyleSheet.create({
     buttonsContainer: {
         gap: 20,
         marginTop: 'auto' as const,
+        marginBottom: 20,
     },
     primaryButton: {
         backgroundColor: '#F03F33',

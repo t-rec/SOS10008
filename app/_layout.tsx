@@ -8,18 +8,16 @@ import React, { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 import { View } from 'react-native';
+import { AnimatedSplash } from '@/components/AnimatedSplash';
+import BackButton from '@/components/BackButton';
+import { LanguageToggle } from '@/components/LanguageToggle';
+import { ThemeToggle } from '@/components/ThemeToggle';
+import { Footer } from '@/components/Footer';
+import './i18n/i18n'; // Initialize i18n
 
 SplashScreen.preventAutoHideAsync();
 
 const queryClient = new QueryClient();
-
-import BackButton from '@/components/BackButton';
-import { LanguageToggle } from '@/components/LanguageToggle';
-import { ThemeToggle } from '@/components/ThemeToggle';
-import './i18n/i18n'; // Initialize i18n
-
-
-import { Footer } from '@/components/Footer';
 
 function RootLayoutNav() {
     return (
@@ -63,7 +61,10 @@ function RootLayoutNav() {
 }
 
 export default function RootLayout() {
+    const [showSplash, setShowSplash] = React.useState(true);
+
     useEffect(() => {
+        // Hide native splash immediately, our animated one takes over
         SplashScreen.hideAsync();
     }, []);
 
@@ -174,6 +175,9 @@ export default function RootLayout() {
                     </ThemeProvider>
                 </NotesProvider>
             </GestureHandlerRootView>
+            {showSplash && (
+                <AnimatedSplash onComplete={() => setShowSplash(false)} />
+            )}
         </QueryClientProvider>
     );
 }

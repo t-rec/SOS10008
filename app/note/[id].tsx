@@ -1,6 +1,6 @@
 import * as Clipboard from 'expo-clipboard';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
-import { Check, Copy, Trash2 } from 'lucide-react-native';
+import { Check, Copy, Pencil, Trash2 } from 'lucide-react-native';
 import { useState } from 'react';
 import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -94,7 +94,7 @@ ${note.witnesses || 'N/A'}
     <View style={[styles.background, { backgroundColor: colors.background }]}>
       <Stack.Screen options={{ headerShown: false }} />
       <ScreenHeader />
-      <SafeAreaView style={styles.container} edges={['bottom', 'left', 'right']}>
+      <SafeAreaView style={styles.container} edges={['left', 'right']}>
         <ScrollView
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
@@ -152,6 +152,18 @@ ${note.witnesses || 'N/A'}
 
             <Pressable
               style={({ pressed }) => [
+                styles.editButton,
+                { backgroundColor: colors.secondaryButton, borderColor: colors.secondaryButtonBorder },
+                pressed && styles.buttonPressed,
+              ]}
+              onPress={() => router.push(`/new-note?edit=${id}`)}
+            >
+              <Pencil size={22} color={colors.brand} />
+              <Text style={[styles.editButtonText, { color: colors.brand }]}>{t('noteDetail.editButton')}</Text>
+            </Pressable>
+
+            <Pressable
+              style={({ pressed }) => [
                 styles.deleteButton,
                 { backgroundColor: colors.secondaryButton, borderColor: colors.secondaryButtonBorder },
                 pressed && styles.buttonPressed,
@@ -185,7 +197,8 @@ const styles = StyleSheet.create({
   scrollContent: {
     flexGrow: 1,
     paddingHorizontal: 24,
-    paddingVertical: 24,
+    paddingTop: 24,
+    paddingBottom: 0,
   },
   errorState: {
     flex: 1,
@@ -269,6 +282,28 @@ const styles = StyleSheet.create({
   },
   copyButtonTextCopied: {
     color: '#FFFFFF',
+  },
+  editButton: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 4,
+    padding: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 12,
+    borderWidth: 3,
+    borderColor: '#000000',
+    shadowColor: '#000000',
+    shadowOffset: { width: 4, height: 4 },
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    elevation: 0,
+  },
+  editButtonText: {
+    fontSize: 20,
+    fontWeight: '900' as const,
+    color: '#F03F33',
+    textTransform: 'uppercase',
   },
   deleteButton: {
     backgroundColor: '#FFFFFF',

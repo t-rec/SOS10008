@@ -30,6 +30,7 @@ export default function ContactScreen() {
                 useNativeDriver: true,
             }).start();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [modalVisible]);
 
     const handleCloseModal = () => {
@@ -37,7 +38,6 @@ export default function ContactScreen() {
             toValue: Dimensions.get('window').height,
             duration: 300,
             useNativeDriver: true,
-            // eslint-disable-next-line react-compiler/react-compiler
         }).start(() => setModalVisible(false));
     };
 
@@ -63,8 +63,8 @@ export default function ContactScreen() {
 
 Je vous écris parce qu'un·e gestionnaire veut me rencontrer / m'a rencontré·e aujourd'hui.
 
-Date : ${note.date}
-Heure : ${note.time}
+Date : ${formatDate(note.date)}
+Heure : ${formatTime(note.time)}
 Gestionnaire : ${note.managerName || '[nom]'}
 Sujet annoncé : ${note.subject || '[sujet]'}
 
@@ -82,8 +82,8 @@ Merci.`;
 
 I am writing because a manager wants to meet with me / met with me today.
 
-Date: ${note.date}
-Time: ${note.time}
+Date: ${formatDate(note.date)}
+Time: ${formatTime(note.time)}
 Manager: ${note.managerName || '[name]'}
 Subject: ${note.subject || '[subject]'}
 
@@ -300,7 +300,7 @@ Thank you.`;
                                             <FileText size={20} color={colors.subtitle} />
                                         </View>
                                         <View style={styles.noteInfo}>
-                                            <Text style={[styles.noteDate, { color: colors.subtitle }]}>{item.date} • {item.time}</Text>
+                                            <Text style={[styles.noteDate, { color: colors.subtitle }]}>{formatDate(item.date)} • {formatTime(item.time)}</Text>
                                             <Text style={[styles.noteSubject, { color: colors.text }]} numberOfLines={1}>
                                                 {item.subject || t('contact.noSubject')}
                                             </Text>

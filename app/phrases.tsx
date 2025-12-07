@@ -32,7 +32,7 @@ export default function PhrasesScreen() {
         <View style={[styles.background, { backgroundColor: colors.background }]}>
             <Stack.Screen options={{ headerShown: false }} />
             <ScreenHeader />
-            <SafeAreaView style={styles.container} edges={['bottom', 'left', 'right']}>
+            <SafeAreaView style={styles.container} edges={['left', 'right']}>
                 <ScrollView
                     contentContainerStyle={styles.scrollContent}
                     showsVerticalScrollIndicator={false}
@@ -98,7 +98,8 @@ const styles = StyleSheet.create({
     scrollContent: {
         flexGrow: 1,
         paddingHorizontal: 24,
-        paddingVertical: 24,
+        paddingTop: 24,
+        paddingBottom: 0,
     },
     header: {
         fontSize: 32,
@@ -162,6 +163,7 @@ const styles = StyleSheet.create({
         borderWidth: 3,
         borderColor: '#000000',
         marginTop: 'auto' as const,
+        marginBottom: 20,
         shadowColor: '#000000',
         shadowOffset: { width: 4, height: 4 },
         shadowOpacity: 1,

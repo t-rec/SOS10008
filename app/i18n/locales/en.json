@@ -82,6 +82,7 @@
         "witnessesLabel": "Witnesses, people present, other details",
         "witnessesPlaceholder": "Names of people present, other relevant information...",
         "saveButton": "Save my notes",
+        "updateButton": "Save changes",
         "cancelButton": "Cancel / Back",
         "errorManager": "Manager's name is required",
         "errorSubject": "Meeting subject is required",
@@ -89,8 +90,11 @@
         "toastErrorText": "Please correct the errors shown in red.",
         "toastSuccessTitle": "Success",
         "toastSuccessText": "Your notes have been saved.",
+        "toastUpdateSuccessTitle": "Changes saved",
+        "toastUpdateSuccessText": "Your changes have been saved.",
         "toastSaveErrorTitle": "Error",
-        "toastSaveErrorText": "Unable to save your notes."
+        "toastSaveErrorText": "Unable to save your notes.",
+        "editTitle": "Edit note"
     },
     "noteDetail": {
         "notFound": "Note not found",
@@ -100,6 +104,7 @@
         "witnesses": "Witnesses, people present, other details",
         "copyButton": "Copy all text",
         "copiedButton": "Text copied!",
+        "editButton": "Edit this note",
         "deleteButton": "Delete this note",
         "copyErrorTitle": "Error",
         "copyErrorText": "Unable to copy text",

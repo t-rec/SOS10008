@@ -1,10 +1,9 @@
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import Toast from 'react-native-toast-message';
 import { useNotes } from '@/contexts/NotesContext';
-import { Stack, useRouter } from 'expo-router';
-import { useState } from 'react';
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
+import { useEffect, useState } from 'react';
 import {
-    Alert,
     KeyboardAvoidingView,
     Platform,
     Pressable,
@@ -22,11 +21,15 @@ import { ScreenHeader } from '@/components/ScreenHeader';
 
 export default function NewNoteScreen() {
     const router = useRouter();
-    const { addNote } = useNotes();
+    const { edit } = useLocalSearchParams<{ edit?: string }>();
+    const { addNote, getNoteById, updateNote } = useNotes();
     const insets = useSafeAreaInsets();
     const { t } = useTranslation();
     const { colors, activeTheme } = useTheme();
     const { formatDate, formatTime, isFrench } = useDateTimeFormat();
+
+    const isEditMode = !!edit;
+    const existingNote = isEditMode ? getNoteById(edit) : undefined;
 
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [showDatePicker, setShowDatePicker] = useState(false);
@@ -36,6 +39,17 @@ export default function NewNoteScreen() {
     const [subject, setSubject] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [witnesses, setWitnesses] = useState<string>('');
+
+    // Pre-fill form when editing an existing note
+    useEffect(() => {
+        if (existingNote) {
+            setSelectedDate(new Date(existingNote.date));
+            setManagerName(existingNote.managerName);
+            setSubject(existingNote.subject);
+            setDescription(existingNote.description);
+            setWitnesses(existingNote.witnesses);
+        }
+    }, [existingNote]);
 
     const onDateChange = (event: DateTimePickerEvent, date?: Date) => {
         if (Platform.OS === 'android') {
@@ -95,29 +109,43 @@ export default function NewNoteScreen() {
 
         try {
             const isoDate = selectedDate.toISOString();
-
-            await addNote({
+            const noteData = {
                 date: isoDate,
                 time: isoDate,
                 managerName: managerName.trim(),
                 subject: subject.trim(),
                 description: description.trim(),
                 witnesses: witnesses.trim(),
-            });
+            };
 
-            Toast.show({
-                type: 'success',
-                text1: t('newNote.toastSuccessTitle'),
-                text2: t('newNote.toastSuccessText'),
-                position: 'bottom',
-            });
+            if (isEditMode && edit) {
+                await updateNote(edit, noteData);
+                Toast.show({
+                    type: 'success',
+                    text1: t('newNote.toastUpdateSuccessTitle'),
+                    text2: t('newNote.toastUpdateSuccessText'),
+                    position: 'bottom',
+                });
+            } else {
+                await addNote(noteData);
+                Toast.show({
+                    type: 'success',
+                    text1: t('newNote.toastSuccessTitle'),
+                    text2: t('newNote.toastSuccessText'),
+                    position: 'bottom',
+                });
+            }
 
             // Navigate back after a short delay to let the user see the success state
             setTimeout(() => {
-                if (router.canGoBack()) {
+                if (isEditMode) {
+                    // When editing, go back to detail page
                     router.back();
                 } else {
-                    router.replace('/notes');
+                    // When creating new note, clear stack and go to notes list
+                    // This ensures "Back" from /notes goes to Home, not emergency
+                    router.dismissAll();
+                    router.push('/notes');
                 }
             }, 500);
 
@@ -158,7 +186,7 @@ export default function NewNoteScreen() {
                         keyboardShouldPersistTaps="handled"
                         keyboardDismissMode="on-drag"
                     >
-                        <Text style={[styles.header, { color: colors.text }]}>{t('newNote.title')}</Text>
+                        <Text style={[styles.header, { color: colors.text }]}>{isEditMode ? t('newNote.editTitle') : t('newNote.title')}</Text>
 
                         <View style={styles.form}>
                             <View style={styles.row}>
@@ -294,7 +322,7 @@ export default function NewNoteScreen() {
                                 ]}
                                 onPress={handleSave}
                             >
-                                <Text style={styles.saveButtonText}>{t('newNote.saveButton')}</Text>
+                                <Text style={styles.saveButtonText}>{isEditMode ? t('newNote.updateButton') : t('newNote.saveButton')}</Text>
                             </Pressable>
 
                             <Pressable

@@ -1,77 +1,107 @@
 # SOS 10008
 
-Mobile app for Local 10008 union members to help navigate management meetings.
+Application mobile pour les membres de la section locale 10008 pour naviguer les rencontres avec la gestion.
 
-## What It Does
+## Fonctionnalités
 
-- **Emergency Info**: Know your rights before entering a meeting
-- **Useful Phrases**: Copy pre-written phrases to use in meetings
-- **Meeting Notes**: Document what happens during meetings
-- **Contact Union**: Quick access to Local 10008 contact info
-- **Dark Mode**: Eye-friendly dark theme with Light/Dark/System modes
-- **Bilingual**: Full French and English support
+- **Guide d'urgence** – Connaître vos droits avant les rencontres
+- **Phrases utiles** – Phrases prêtes à copier-coller
+- **Notes de rencontre** – Créer, modifier, sauvegarder, partager
+- **Contacter le syndicat** – Accès rapide au 10008
+- **Bilingue** – Français & anglais (formats canadiens)
+- **Mode sombre** – Thèmes clair/sombre/système
+
+## Démarrage rapide
+
+```bash
+npm install
+npm start
+```
+
+## Compiler et déployer
+
+```bash
+# Build de production (App Store/TestFlight)
+eas build --platform ios --profile production
+
+# Soumettre à l'App Store
+eas submit --platform ios
+```
+
+Voir [DEPLOYMENT.md](docs/DEPLOYMENT.md) pour plus de détails.
+
+## Documentation
+
+| Doc | Description |
+|-----|-------------|
+| [ARCHITECTURE.md](docs/ARCHITECTURE.md) | Fonctionnement du code |
+| [DEPLOYMENT.md](docs/DEPLOYMENT.md) | Compiler et soumettre aux stores |
+| [PRIVACY_POLICY.md](PRIVACY_POLICY.md) | Gestion des données |
+
+## Stack technique
+
+React Native • Expo • TypeScript • Expo Router • React Query • i18next • AsyncStorage
+
+## Contact
+
+**Section locale 10008**  
+📧 `tarek.alnosir@gmail.com` • 📞 `(514) 660-00388`
+
+---
+
+*Non affilié au syndicat national.*
+
+---
+
+# SOS 10008 (English)
+
+Mobile app for Local 10008 union members to navigate management meetings.
+
+## Features
+
+- **Emergency Guide** – Know your rights before meetings
+- **Useful Phrases** – Copy-paste ready phrases
+- **Meeting Notes** – Create, edit, save, share notes
+- **Contact Union** – Quick access to 10008
+- **Bilingual** – French & English (Canadian formats)
+- **Dark Mode** – Light/Dark/System themes
 
 ## Quick Start
 
 ```bash
-# Install dependencies
 npm install
-
-# Start development server
 npm start
-
-# Run on platforms
-npm run ios      # iOS Simulator
-npm run android  # Android Emulator
 ```
+
+## Build & Deploy
+
+```bash
+# Production build (App Store/TestFlight)
+eas build --platform ios --profile production
+
+# Submit to App Store
+eas submit --platform ios
+```
+
+See [DEPLOYMENT.md](docs/DEPLOYMENT.md) for full details.
 
 ## Documentation
 
-- **[Deployment Guide](docs/DEPLOYMENT.md)**: How to build and submit to App Stores
-- **[Architecture Guide](docs/ARCHITECTURE.md)**: How the code works
-- **[Privacy Policy](PRIVACY_POLICY.md)**: Data handling and privacy
+| Doc | Purpose |
+|-----|---------|
+| [ARCHITECTURE.md](docs/ARCHITECTURE.md) | How the code works |
+| [DEPLOYMENT.md](docs/DEPLOYMENT.md) | Build & submit to stores |
+| [PRIVACY_POLICY.md](PRIVACY_POLICY.md) | Data handling |
 
 ## Tech Stack
 
-- React Native + Expo
-- TypeScript
-- Expo Router (file-based routing)
-- React Query
-- i18next (French/English)
-- AsyncStorage (local data)
-
-## Key Features
-
-### Dark Mode
-- Light, Dark, and System themes
-- Theme toggle in header
-- Persistent preferences
-- Consistent across all screens
-
-### Internationalization
-- French (default) and English
-- Language toggle in header
-- Locale-aware date/time formatting
-- All UI text translated
-
-### Notes System
-- Create and save meeting notes
-- Local storage (no backend)
-- Email integration for sharing
-- Delete with confirmation
-
-### UI/UX
-- Custom back button on all screens
-- Toast notifications for feedback
-- Custom modals with backdrop dismiss
-- Global footer with disclaimer
+React Native • Expo • TypeScript • Expo Router • React Query • i18next • AsyncStorage
 
 ## Contact
 
-**Section locale 10008**
-- Email: `10008@ute-sei.org`
-- Phone: `(438) 788-0300`
+**Local 10008**  
+📧 `tarek.alnosir@gmail.com` • 📞 `(514) 660-00388`
 
-## License
+---
 
-Exclusive to Local 10008 members. Not affiliated with UTE nor PSAC.
+*Not affiliated with national union.*

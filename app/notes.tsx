@@ -1,6 +1,6 @@
 import { useNotes } from '@/contexts/NotesContext';
 import { Stack, useRouter } from 'expo-router';
-import { ArrowLeft, FileText, Plus, Trash2 } from 'lucide-react-native';
+import { FileText, Plus, Trash2 } from 'lucide-react-native';
 import { useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -45,7 +45,7 @@ export default function NotesListScreen() {
         <View style={[styles.background, { backgroundColor: colors.background }]}>
             <Stack.Screen options={{ headerShown: false }} />
             <ScreenHeader />
-            <SafeAreaView style={styles.container} edges={['bottom', 'left', 'right']}>
+            <SafeAreaView style={styles.container} edges={['left', 'right']}>
                 <ScrollView
                     contentContainerStyle={styles.scrollContent}
                     showsVerticalScrollIndicator={false}
@@ -143,7 +143,8 @@ const styles = StyleSheet.create({
     scrollContent: {
         flexGrow: 1,
         paddingHorizontal: 24,
-        paddingVertical: 24,
+        paddingTop: 24,
+        paddingBottom: 0,
     },
     emptyState: {
         flex: 1,

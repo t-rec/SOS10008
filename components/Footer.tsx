@@ -11,7 +11,7 @@ if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental
 
 export function Footer() {
     const { t } = useTranslation();
-    const { colors, activeTheme } = useTheme();
+    const { colors } = useTheme();
     const insets = useSafeAreaInsets();
     const [isExpanded, setIsExpanded] = useState(false);
 

@@ -227,6 +227,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         gap: 12,
         marginTop: 'auto' as const,
+        marginBottom: 20,
         borderWidth: 3,
         borderColor: '#000000',
         shadowColor: '#000000',

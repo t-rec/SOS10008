@@ -65,6 +65,16 @@ export const [NotesProvider, useNotes] = createContextHook(() => {
         await saveNotes(updatedNotes);
     };
 
+    const updateNote = async (id: string, updates: Omit<Note, 'id' | 'createdAt'>) => {
+        const updatedNotes = notes.map(note =>
+            note.id === id
+                ? { ...note, ...updates }
+                : note
+        );
+        setNotes(updatedNotes);
+        await saveNotes(updatedNotes);
+    };
+
     const getNoteById = (id: string): Note | undefined => {
         return notes.find(note => note.id === id);
     };
@@ -74,6 +84,7 @@ export const [NotesProvider, useNotes] = createContextHook(() => {
         isLoading,
         addNote,
         deleteNote,
+        updateNote,
         getNoteById,
     };
 });
